@@ -4,7 +4,10 @@ import Home from "./pages/Home";
 import BrowseItems from "./pages/BrowseItems";
 import ItemDetails from "./pages/ItemDetails";
 import ReportItem from "./pages/ReportItem";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 import "./App.css";
+
 
 function App() {
   return (
@@ -17,24 +20,11 @@ function App() {
         <Route path="/browse" element={<BrowseItems />} />
 
         <Route path="/report" element={<ReportItem />} />
+        
+        <Route path="/login" element={<Login />} />
+        
 
-        <Route
-          path="/login"
-          element={
-            <main className="page-content">
-              <h1>Log in</h1>
-            </main>
-          }
-        />
-
-        <Route
-          path="/register"
-          element={
-            <main className="page-content">
-              <h1>Create an Account</h1>
-            </main>
-          }
-        />
+        <Route path="/register" element={<Register />} />
 
         <Route path="/items/:id" element={<ItemDetails />} />
       </Routes>
