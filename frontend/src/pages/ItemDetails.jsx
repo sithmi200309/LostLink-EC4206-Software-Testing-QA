@@ -1,14 +1,58 @@
-import { Link, useLocation, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router";
+
 
 function ItemDetails() {
   const { id } = useParams();
-  const location = useLocation();
 
-  // Reuse the item information passed from the Browse Items page.
-  const item = location.state?.item;
+  const [item, setItem] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  // Show a helpful message if item information is unavailable.
-  if (!item || String(item.id) !== id) {
+  useEffect(() => {
+    async function fetchItem() {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response = await fetch(
+          `http://localhost:5000/api/items/${id}`
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.message || "Unable to load item details."
+          );
+        }
+
+        setItem(data.item);
+      } catch (err) {
+        setError(
+          err.message === "Failed to fetch"
+            ? "Cannot connect to the server. Please check that the backend is running."
+            : err.message
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchItem();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <main className="details-page">
+        <div className="details-container">
+          <p>Loading item details...</p>
+        </div>
+      </main>
+    );
+  }
+
+  if (error || !item) {
     return (
       <main className="details-page">
         <div className="details-container">
@@ -16,9 +60,7 @@ function ItemDetails() {
             <h1>Item details unavailable</h1>
 
             <p>
-              We couldn't find the details for this item.
-              Please return to Browse Items and select an item
-              to view its information.
+              {error || "We couldn't find this item."}
             </p>
 
             <Link to="/browse" className="details-back-link">
@@ -30,14 +72,17 @@ function ItemDetails() {
     );
   }
 
+
   // Format the report date for display.
-  const formattedDate = new Date(
-    `${item.date}T00:00:00`
-  ).toLocaleDateString("en-GB", {
+ const formattedDate = new Date(item.date).toLocaleDateString(
+  "en-GB",
+  {
     day: "numeric",
     month: "long",
     year: "numeric",
-  });
+    timeZone: "UTC",
+  }
+);
 
   // Use a simple fallback if a description is missing.
   const description =

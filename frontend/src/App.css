@@ -3122,3 +3122,413 @@ select {
     text-align: center;
   }
 }
+
+
+.nav-user-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #172b4d;
+  font-weight: 600;
+}
+
+.profile-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #e8efff;
+  color: #2455d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.logout-btn {
+  padding: 10px 20px;
+  border: 1px solid #2455d8;
+  border-radius: 8px;
+  background: white;
+  color: #2455d8;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #2455d8;
+  color: white;
+}
+
+
+.item-owner-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.edit-item-btn {
+  padding: 8px 16px;
+  border: 1px solid #2455d8;
+  border-radius: 6px;
+  background: white;
+  color: #2455d8;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.edit-item-btn:hover {
+  background: #2455d8;
+  color: white;
+}
+
+.delete-item-btn {
+  padding: 8px 16px;
+  border: 1px solid #dc3545;
+  border-radius: 6px;
+  background: white;
+  color: #dc3545;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.delete-item-btn:hover {
+  background: #dc3545;
+  color: white;
+}
+
+
+.delete-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.delete-modal {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+}
+
+.delete-modal-icon {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.delete-modal h2 {
+  color: #172b4d;
+  margin-bottom: 12px;
+}
+
+.delete-modal p {
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.delete-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.delete-modal-actions button {
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-delete-btn {
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+.confirm-delete-btn {
+  background: #dc3545;
+  border: 1px solid #dc3545;
+  color: white;
+}
+
+.confirm-delete-btn:hover {
+  background: #b91c1c;
+}
+
+/* =========================================
+   MY REPORTS PAGE
+========================================= */
+
+.my-reports-page {
+  min-height: calc(100vh - 80px);
+  background: #f5f7fc;
+  padding: 45px 7%;
+}
+
+.my-reports-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Page heading */
+
+.my-reports-header {
+  margin-bottom: 32px;
+}
+
+.my-reports-header h1 {
+  font-size: 32px;
+  color: #172b4d;
+  margin-bottom: 10px;
+}
+
+.my-reports-header p {
+  color: #64748b;
+  font-size: 15px;
+}
+
+/* Statistics cards */
+
+.my-reports-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 35px;
+}
+
+.my-report-stat {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  border: 1px solid #e5eaf3;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.my-report-stat h3 {
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.my-report-stat p {
+  color: #2454d6;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* =========================================
+   REPORT CARDS
+========================================= */
+
+.my-reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.my-report-card {
+  background: #ffffff;
+  padding: 25px 28px;
+  border-radius: 14px;
+  border: 1px solid #e5eaf3;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+.my-report-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.my-report-card-info h2 {
+  color: #172b4d;
+  font-size: 21px;
+  margin: 12px 0;
+}
+
+.my-report-card-info p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.my-report-card-info strong {
+  color: #334155;
+}
+
+/* Lost / Found labels */
+
+.my-report-status {
+  display: inline-block;
+  padding: 6px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.my-report-status.lost {
+  background: #fff0ee;
+  color: #d94841;
+}
+
+.my-report-status.found {
+  background: #e8f8ef;
+  color: #16834a;
+}
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.my-report-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 190px;
+  flex-shrink: 0;
+}
+
+.my-report-actions a,
+.my-report-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+/* View Details */
+
+.my-report-actions a:first-child {
+  grid-column: 1 / -1;
+  background: #2454d6;
+  color: #ffffff;
+  border: 1px solid #2454d6;
+}
+
+.my-report-actions a:first-child:hover {
+  background: #173fae;
+}
+
+/* Edit */
+
+.my-report-actions a:nth-child(2) {
+  background: #eef3ff;
+  color: #2454d6;
+  border: 1px solid #eef3ff;
+}
+
+.my-report-actions a:nth-child(2):hover {
+  background: #dce6ff;
+}
+
+/* Delete */
+
+.my-report-actions button {
+  background: #ffffff;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+}
+
+.my-report-actions button:hover {
+  background: #fff0f0;
+}
+
+/* =========================================
+   EMPTY REPORTS
+========================================= */
+
+.my-reports-empty {
+  background: #ffffff;
+  padding: 55px 25px;
+  text-align: center;
+  border-radius: 14px;
+  border: 1px solid #e5eaf3;
+}
+
+.my-reports-empty h2 {
+  color: #172b4d;
+  margin-bottom: 12px;
+}
+
+.my-reports-empty p {
+  color: #64748b;
+  margin-bottom: 22px;
+}
+
+.my-reports-empty a {
+  display: inline-block;
+  background: #2454d6;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 7px;
+  font-weight: 600;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 768px) {
+
+  .my-reports-page {
+    padding: 30px 5%;
+  }
+
+  .my-reports-stats {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .my-report-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+
+  .my-report-card-info {
+    width: 100%;
+  }
+
+  .my-report-actions {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .my-reports-header h1 {
+    font-size: 26px;
+  }
+
+  .my-report-actions {
+    max-width: 100%;
+  }
+}

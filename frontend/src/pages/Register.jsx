@@ -1,7 +1,12 @@
+
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 function Register() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -11,6 +16,7 @@ function Register() {
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -24,8 +30,11 @@ function Register() {
     setSuccess("");
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+
+    setError("");
+    setSuccess("");
 
     if (
       !formData.fullName.trim() ||
@@ -42,28 +51,75 @@ function Register() {
       return;
     }
 
+    if (formData.password.length > 72) {
+      setError("Password cannot exceed 72 characters.");
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
 
-    setError("");
+    try {
+      setIsSubmitting(true);
 
-    setSuccess(
-      "Form validation successful! Account creation will be connected to the backend next."
-    );
+      const response = await fetch(
+        "http://localhost:5000/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fullName: formData.fullName.trim(),
+            email: formData.email.trim(),
+            password: formData.password,
+            confirmPassword: formData.confirmPassword,
+          }),
+        }
+      );
 
-    console.log("Registration form validated:", {
-      fullName: formData.fullName,
-      email: formData.email,
-    });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Registration failed.");
+      }
+
+      // Save the new user and JWT token in AuthContext.
+      login({
+        user: data.user,
+        token: data.token,
+      });
+
+      setSuccess(
+        `Account created successfully! Welcome, ${data.user.fullName}!`
+      );
+
+      setFormData({
+        fullName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+
+      // Redirect to the home page after successful registration.
+      navigate("/");
+    } catch (error) {
+      setError(
+        error.message === "Failed to fetch"
+          ? "Cannot connect to the server. Please check that the backend is running."
+          : error.message
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
     <main className="register-page">
       <div className="register-shell">
-
-        {/* Left welcome panel — shared with the Login design */}
+        {/* Left welcome panel */}
         <section className="register-welcome">
           <div className="register-welcome-content">
             <p className="register-welcome-eyebrow">
@@ -108,7 +164,6 @@ function Register() {
         {/* Right registration form */}
         <section className="register-form-panel">
           <div className="register-form-inner">
-
             <Link to="/" className="register-brand">
               <span className="logo-icon" aria-hidden="true">
                 ∞
@@ -130,7 +185,10 @@ function Register() {
             </div>
 
             {error && (
-              <div className="auth-message auth-error" role="alert">
+              <div
+                className="auth-message auth-error"
+                role="alert"
+              >
                 {error}
               </div>
             )}
@@ -161,6 +219,8 @@ function Register() {
                   value={formData.fullName}
                   onChange={handleChange}
                   autoComplete="name"
+                  minLength={2}
+                  maxLength={100}
                   required
                 />
               </div>
@@ -178,6 +238,7 @@ function Register() {
                   value={formData.email}
                   onChange={handleChange}
                   autoComplete="email"
+                  maxLength={254}
                   required
                 />
 
@@ -200,11 +261,12 @@ function Register() {
                   onChange={handleChange}
                   autoComplete="new-password"
                   minLength={8}
+                  maxLength={72}
                   required
                 />
 
                 <small className="register-field-hint">
-                  Use at least 8 characters.
+                  Use 8–72 characters.
                 </small>
               </div>
 
@@ -228,9 +290,10 @@ function Register() {
               <button
                 type="submit"
                 className="register-submit-button"
+                disabled={isSubmitting}
               >
                 <span aria-hidden="true">→</span>
-                Create account
+                {isSubmitting ? "Creating account..." : "Create account"}
               </button>
             </form>
 
@@ -238,9 +301,6 @@ function Register() {
               Already have an account?{" "}
               <Link to="/login">Sign in</Link>
             </p>
-
-            
-
           </div>
         </section>
       </div>

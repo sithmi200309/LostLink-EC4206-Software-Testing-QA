@@ -59,6 +59,13 @@ const itemSchema = new mongoose.Schema(
       minlength: [10, "Description must contain at least 10 characters."],
       maxlength: [1000, "Description cannot exceed 1000 characters."],
     },
+
+    createdBy: {
+  type: require("mongoose").Schema.Types.ObjectId,
+  ref: "User",
+  required: true,
+},
+
   },
   {
     timestamps: true,

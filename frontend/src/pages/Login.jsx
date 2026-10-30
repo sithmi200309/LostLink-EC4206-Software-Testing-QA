@@ -1,7 +1,12 @@
+
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -9,6 +14,7 @@ function Login() {
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -22,23 +28,59 @@ function Login() {
     setSuccess("");
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+
+    setError("");
+    setSuccess("");
 
     if (!formData.email.trim() || !formData.password) {
       setError("Please enter your email address and password.");
       return;
     }
 
-    setError("");
+    try {
+      setIsSubmitting(true);
 
-    setSuccess(
-      "Form validation successful! Login will be connected to the backend next."
-    );
+      const response = await fetch(
+        "http://localhost:5000/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email.trim(),
+            password: formData.password,
+          }),
+        }
+      );
 
-    console.log("Login form submitted:", {
-      email: formData.email,
-    });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed.");
+      }
+
+      // Save the logged-in user and JWT token in AuthContext.
+      login({
+        user: data.user,
+        token: data.token,
+      });
+
+      setSuccess(`Welcome back, ${data.user.fullName}!`);
+
+      // Go to the home page after successful login.
+      navigate("/");
+    } catch (error) {
+      setError(
+        error.message === "Failed to fetch"
+          ? "Cannot connect to the server. Please check that the backend is running."
+          : error.message
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -77,7 +119,9 @@ function Login() {
             />
 
             <div className="campus-image-caption">
-              <strong>Looking out for each other, one item at a time.</strong>
+              <strong>
+                Looking out for each other, one item at a time.
+              </strong>
               <span>The ABCD Community</span>
             </div>
           </div>
@@ -106,7 +150,10 @@ function Login() {
             </div>
 
             {error && (
-              <div className="auth-message auth-error" role="alert">
+              <div
+                className="auth-message auth-error"
+                role="alert"
+              >
                 {error}
               </div>
             )}
@@ -120,7 +167,10 @@ function Login() {
               </div>
             )}
 
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form
+              className="login-form"
+              onSubmit={handleSubmit}
+            >
               <div className="auth-field">
                 <label htmlFor="email">Email address</label>
 
@@ -154,9 +204,10 @@ function Login() {
               <button
                 type="submit"
                 className="login-submit-button"
+                disabled={isSubmitting}
               >
                 <span aria-hidden="true">→</span>
-                Sign in
+                {isSubmitting ? "Signing in..." : "Sign in"}
               </button>
             </form>
 
@@ -164,8 +215,6 @@ function Login() {
               New to LostLink?{" "}
               <Link to="/register">Create an account</Link>
             </p>
-
-            
           </div>
         </section>
       </div>

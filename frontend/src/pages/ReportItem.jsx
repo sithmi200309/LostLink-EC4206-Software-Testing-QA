@@ -1,7 +1,11 @@
+
 import { useState } from "react";
 import { Link } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 function ReportItem() {
+  const { token, isAuthenticated } = useAuth();
+
   const [formData, setFormData] = useState({
     status: "Lost",
     name: "",
@@ -12,6 +16,8 @@ function ReportItem() {
   });
 
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -22,17 +28,65 @@ function ReportItem() {
     }));
 
     setMessage("");
+    setIsSuccess(false);
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    // Temporary confirmation until we connect the backend.
-    setMessage(
-      "Your report has been prepared successfully! Database submission will be available soon."
-    );
+    setMessage("");
+    setIsSuccess(false);
 
-    console.log("Report form data:", formData);
+    if (!isAuthenticated || !token) {
+      setMessage("Please sign in before submitting a report.");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      const response = await fetch(
+        "http://localhost:5000/api/items",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.errors?.join(" ") ||
+          data.message ||
+          "Failed to submit your report."
+        );
+      }
+
+      setIsSuccess(true);
+      setMessage("Your report has been saved successfully!");
+
+      setFormData({
+        status: "Lost",
+        name: "",
+        category: "",
+        location: "",
+        date: "",
+        description: "",
+      });
+    } catch (error) {
+      setMessage(
+        error.message === "Failed to fetch"
+          ? "Cannot connect to the server. Please make sure the backend is running."
+          : error.message
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -120,6 +174,7 @@ function ReportItem() {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  minLength={2}
                   maxLength={100}
                 />
               </label>
@@ -205,26 +260,43 @@ function ReportItem() {
               <span aria-hidden="true">🛡️</span>
 
               <p>
-                Please provide accurate information. Reports will be
-                stored in LostLink once the database is connected.
+                Your report will be saved securely in LostLink and
+                associated with your account.
               </p>
             </div>
 
             {message && (
-              <p className="report-success-message" role="status">
+              <p
+                className={
+                  isSuccess
+                    ? "report-success-message"
+                    : "report-error-message"
+                }
+                role={isSuccess ? "status" : "alert"}
+              >
                 {message}
               </p>
             )}
 
             <div className="report-form-actions">
-              <button type="submit" className="report-submit-button">
-                Submit Report →
+              <button
+                type="submit"
+                className="report-submit-button"
+                disabled={isSubmitting || !isAuthenticated}
+              >
+                {isSubmitting ? "Submitting..." : "Submit Report →"}
               </button>
 
               <Link to="/browse" className="report-cancel-link">
                 Cancel
               </Link>
             </div>
+
+            {!isAuthenticated && (
+              <p className="report-login-notice">
+                Please <Link to="/login">sign in</Link> to submit a report.
+              </p>
+            )}
           </form>
         </section>
       </div>
