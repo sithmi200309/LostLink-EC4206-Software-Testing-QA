@@ -53,14 +53,17 @@ function Navbar() {
 
         {/* Main navigation links */}
         <nav className="nav-links">
-  <NavLink to="/" end>Home</NavLink>
-  <NavLink to="/browse">Browse Items</NavLink>
-  <NavLink to="/report">Report an Item</NavLink>
+          <NavLink to="/" end>Home</NavLink>
+          <NavLink to="/browse">Browse Items</NavLink>
+          <NavLink to="/report">Report an Item</NavLink>
 
-  {isAuthenticated && (
-    <NavLink to="/my-reports">My Reports</NavLink>
-  )}
-</nav>
+          {isAuthenticated && (
+            <>
+              <NavLink to="/my-reports">My Reports</NavLink>
+              <NavLink to="/contact-requests">Contact Requests</NavLink>
+            </>
+          )}
+        </nav>
 
         {/* Account section */}
         <div className="nav-actions">

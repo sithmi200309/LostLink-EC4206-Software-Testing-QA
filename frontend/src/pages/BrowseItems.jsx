@@ -23,6 +23,8 @@ function BrowseItems() {
   const [category, setCategory] = useState("All categories");
   const [location, setLocation] = useState("All campus locations");
   const [dateRange, setDateRange] = useState("All dates");
+  const [sortBy, setSortBy] = useState("newest");
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -103,7 +105,6 @@ function BrowseItems() {
         );
       }
 
-      // Remove deleted item from the displayed list
       setItems((previousItems) =>
         previousItems.filter(
           (item) => item._id !== selectedItemId
@@ -119,13 +120,14 @@ function BrowseItems() {
     }
   }
 
-  // Reset all filters
+  // Reset all filters and sorting
   function resetFilters() {
     setSearch("");
     setStatus("All");
     setCategory("All categories");
     setLocation("All campus locations");
     setDateRange("All dates");
+    setSortBy("newest");
   }
 
   // Format item date
@@ -144,10 +146,12 @@ function BrowseItems() {
 
   // Filter items
   const filteredItems = items.filter((item) => {
+    const searchText = search.toLowerCase();
+
     const matchesSearch =
-      item.name.toLowerCase().includes(search.toLowerCase()) ||
-      item.location.toLowerCase().includes(search.toLowerCase()) ||
-      item.description.toLowerCase().includes(search.toLowerCase());
+      item.name.toLowerCase().includes(searchText) ||
+      item.location.toLowerCase().includes(searchText) ||
+      item.description.toLowerCase().includes(searchText);
 
     const matchesStatus =
       status === "All" || item.status === status;
@@ -183,6 +187,26 @@ function BrowseItems() {
       matchesLocation &&
       matchesDate
     );
+  });
+
+  // Sort filtered items
+  const sortedItems = [...filteredItems].sort((a, b) => {
+    switch (sortBy) {
+      case "newest":
+        return new Date(b.date) - new Date(a.date);
+
+      case "oldest":
+        return new Date(a.date) - new Date(b.date);
+
+      case "name-asc":
+        return a.name.localeCompare(b.name);
+
+      case "name-desc":
+        return b.name.localeCompare(a.name);
+
+      default:
+        return 0;
+    }
   });
 
   return (
@@ -294,10 +318,29 @@ function BrowseItems() {
             <p>
               {loading
                 ? "Loading items..."
-                : `Showing ${filteredItems.length} of ${items.length} items`}
+                : `Showing ${sortedItems.length} of ${items.length} items`}
             </p>
 
-            <button onClick={resetFilters}>Clear filters</button>
+            <div className="browse-results-actions">
+              <label className="sort-control">
+                <span>Sort by:</span>
+
+                <select
+                  value={sortBy}
+                  onChange={(event) =>
+                    setSortBy(event.target.value)
+                  }
+                  aria-label="Sort items"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="name-asc">Name (A–Z)</option>
+                  <option value="name-desc">Name (Z–A)</option>
+                </select>
+              </label>
+
+              <button onClick={resetFilters}>Clear filters</button>
+            </div>
           </div>
 
           {/* Loading and error states */}
@@ -311,9 +354,9 @@ function BrowseItems() {
               <h3>Unable to load items</h3>
               <p>{error}</p>
             </div>
-          ) : filteredItems.length > 0 ? (
+          ) : sortedItems.length > 0 ? (
             <div className="items-grid">
-              {filteredItems.map((item) => {
+              {sortedItems.map((item) => {
                 const itemOwnerId =
                   item.createdBy?._id || item.createdBy;
 
@@ -360,24 +403,24 @@ function BrowseItems() {
                         </Link>
                       </div>
 
-                      {/* Delete button for item owner */}
-                   {isOwner && (
-  <div className="item-owner-actions">
-    <Link
-      to={`/items/${item._id}/edit`}
-      className="edit-item-btn"
-    >
-      Edit
-    </Link>
+                      {/* Owner actions */}
+                      {isOwner && (
+                        <div className="item-owner-actions">
+                          <Link
+                            to={`/items/${item._id}/edit`}
+                            className="edit-item-btn"
+                          >
+                            Edit
+                          </Link>
 
-    <button
-      className="delete-item-btn"
-      onClick={() => confirmDelete(item._id)}
-    >
-      Delete
-    </button>
-  </div>
-)}
+                          <button
+                            className="delete-item-btn"
+                            onClick={() => confirmDelete(item._id)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </article>
                 );

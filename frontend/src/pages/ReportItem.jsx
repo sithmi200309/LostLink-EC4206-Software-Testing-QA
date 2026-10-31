@@ -3,6 +3,27 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
+const categories = [
+  "Bags",
+  "Electronics",
+  "Personal Items",
+  "Documents",
+  "Stationery",
+  "Accessories",
+  "Clothing",
+  "Other",
+];
+
+// Get today's date in YYYY-MM-DD format using local time
+function getTodayDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
 function ReportItem() {
   const { token, isAuthenticated } = useAuth();
 
@@ -19,6 +40,8 @@ function ReportItem() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  const todayDate = getTodayDate();
+
   function handleChange(event) {
     const { name, value } = event.target;
 
@@ -31,8 +54,47 @@ function ReportItem() {
     setIsSuccess(false);
   }
 
+  // Client-side validation
+  function validateForm() {
+    const name = formData.name.trim();
+    const location = formData.location.trim();
+    const description = formData.description.trim();
+
+    if (!name || name.length < 2 || name.length > 100) {
+      return "Item name must contain between 2 and 100 characters.";
+    }
+
+    if (!categories.includes(formData.category)) {
+      return "Please select a valid item category.";
+    }
+
+    if (!location || location.length > 150) {
+      return "Please enter a valid location (maximum 150 characters).";
+    }
+
+    if (!formData.date) {
+      return "Please select the date the item was lost or found.";
+    }
+
+    if (formData.date > todayDate) {
+      return "The reported date cannot be in the future.";
+    }
+
+    if (
+      !description ||
+      description.length < 10 ||
+      description.length > 1000
+    ) {
+      return "Description must contain between 10 and 1000 characters.";
+    }
+
+    return "";
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
+
+    if (isSubmitting) return;
 
     setMessage("");
     setIsSuccess(false);
@@ -41,6 +103,21 @@ function ReportItem() {
       setMessage("Please sign in before submitting a report.");
       return;
     }
+
+    const validationError = validateForm();
+
+    if (validationError) {
+      setMessage(validationError);
+      return;
+    }
+
+    // Remove unnecessary spaces before sending data
+    const cleanedFormData = {
+      ...formData,
+      name: formData.name.trim(),
+      location: formData.location.trim(),
+      description: formData.description.trim(),
+    };
 
     try {
       setIsSubmitting(true);
@@ -53,17 +130,24 @@ function ReportItem() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(cleanedFormData),
         }
       );
 
-      const data = await response.json();
+      // Safely handle the server response
+      let data = {};
+
+      try {
+        data = await response.json();
+      } catch {
+        data = {};
+      }
 
       if (!response.ok) {
         throw new Error(
           data.errors?.join(" ") ||
           data.message ||
-          "Failed to submit your report."
+          "Failed to submit your report. Please try again."
         );
       }
 
@@ -189,14 +273,12 @@ function ReportItem() {
                   required
                 >
                   <option value="">Select a category</option>
-                  <option value="Bags">Bags</option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="Personal Items">Personal Items</option>
-                  <option value="Documents">Documents</option>
-                  <option value="Stationery">Stationery</option>
-                  <option value="Accessories">Accessories</option>
-                  <option value="Clothing">Clothing</option>
-                  <option value="Other">Other</option>
+
+                  {categories.map((itemCategory) => (
+                    <option key={itemCategory} value={itemCategory}>
+                      {itemCategory}
+                    </option>
+                  ))}
                 </select>
               </label>
 
@@ -230,7 +312,7 @@ function ReportItem() {
                   name="date"
                   value={formData.date}
                   onChange={handleChange}
-                  max={new Date().toLocaleDateString("en-CA")}
+                  max={todayDate}
                   required
                 />
               </label>

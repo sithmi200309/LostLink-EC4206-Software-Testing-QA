@@ -3,6 +3,26 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
+const categories = [
+  "Bags",
+  "Electronics",
+  "Personal Items",
+  "Documents",
+  "Stationery",
+  "Accessories",
+  "Clothing",
+  "Other",
+];
+
+function getTodayDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
 function EditItem() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -35,20 +55,28 @@ function EditItem() {
           `http://localhost:5000/api/items/${id}`
         );
 
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
 
         if (!response.ok) {
-          throw new Error(data.message || "Unable to load item.");
+          throw new Error(
+            data.message || "Unable to load item."
+          );
         }
 
         const item = data.item;
 
-        // Check whether the logged-in user owns this item
-        const ownerId = item.createdBy?._id || item.createdBy;
+        if (!item) {
+          throw new Error("Item not found.");
+        }
 
-        if (String(ownerId) !== String(user?.id)) {
-          setMessage("You do not have permission to edit this item.");
-          setLoading(false);
+        // Check item ownership
+        const ownerId = item.createdBy?._id || item.createdBy;
+        const currentUserId = user?.id || user?._id;
+
+        if (String(ownerId) !== String(currentUserId)) {
+          setMessage(
+            "You do not have permission to edit this item."
+          );
           return;
         }
 
@@ -83,9 +111,48 @@ function EditItem() {
     setIsSuccess(false);
   }
 
+  // Validate form before submitting
+  function validateForm() {
+    const name = formData.name.trim();
+    const location = formData.location.trim();
+    const description = formData.description.trim();
+
+    if (!["Lost", "Found"].includes(formData.status)) {
+      return "Please select a valid item status.";
+    }
+
+    if (name.length < 2 || name.length > 100) {
+      return "Item name must contain between 2 and 100 characters.";
+    }
+
+    if (!categories.includes(formData.category)) {
+      return "Please select a valid item category.";
+    }
+
+    if (!location || location.length > 150) {
+      return "Location is required and must not exceed 150 characters.";
+    }
+
+    if (!formData.date) {
+      return "Please select the date.";
+    }
+
+    if (formData.date > getTodayDate()) {
+      return "The date cannot be in the future.";
+    }
+
+    if (description.length < 10 || description.length > 1000) {
+      return "Description must contain between 10 and 1000 characters.";
+    }
+
+    return null;
+  }
+
   // Submit updated item
   async function handleSubmit(event) {
     event.preventDefault();
+
+    if (isSubmitting) return;
 
     setMessage("");
     setIsSuccess(false);
@@ -94,6 +161,22 @@ function EditItem() {
       setMessage("Please sign in before editing this item.");
       return;
     }
+
+    const validationError = validateForm();
+
+    if (validationError) {
+      setMessage(validationError);
+      return;
+    }
+
+    const cleanedData = {
+      status: formData.status,
+      name: formData.name.trim(),
+      category: formData.category,
+      location: formData.location.trim(),
+      date: formData.date,
+      description: formData.description.trim(),
+    };
 
     try {
       setIsSubmitting(true);
@@ -106,11 +189,11 @@ function EditItem() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(cleanedData),
         }
       );
 
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
         throw new Error(
@@ -128,7 +211,9 @@ function EditItem() {
       }, 1000);
 
     } catch (error) {
-      setMessage(error.message);
+      setMessage(
+        error.message || "Unable to connect to the server."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -149,7 +234,7 @@ function EditItem() {
       <main className="report-page">
         <div className="report-container">
           <h2>Unable to edit item</h2>
-          <p>{message}</p>
+          <p role="alert">{message}</p>
           <Link to="/browse">Back to Browse Items</Link>
         </div>
       </main>
@@ -257,14 +342,12 @@ function EditItem() {
                   required
                 >
                   <option value="">Select a category</option>
-                  <option value="Bags">Bags</option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="Personal Items">Personal Items</option>
-                  <option value="Documents">Documents</option>
-                  <option value="Stationery">Stationery</option>
-                  <option value="Accessories">Accessories</option>
-                  <option value="Clothing">Clothing</option>
-                  <option value="Other">Other</option>
+
+                  {categories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
                 </select>
               </label>
 
@@ -297,7 +380,7 @@ function EditItem() {
                   name="date"
                   value={formData.date}
                   onChange={handleChange}
-                  max={new Date().toLocaleDateString("en-CA")}
+                  max={getTodayDate()}
                   required
                 />
               </label>

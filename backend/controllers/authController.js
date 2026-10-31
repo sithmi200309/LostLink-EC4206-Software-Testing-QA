@@ -3,6 +3,8 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function createToken(user) {
   return jwt.sign(
     {
@@ -18,15 +20,21 @@ function createToken(user) {
 // REGISTER
 async function register(req, res) {
   try {
-    const { fullName, email, password, confirmPassword } = req.body;
+    const {
+      fullName,
+      email,
+      password,
+      confirmPassword,
+    } = req.body || {};
 
     if (
       typeof fullName !== "string" ||
       typeof email !== "string" ||
-      typeof password !== "string"
+      typeof password !== "string" ||
+      typeof confirmPassword !== "string"
     ) {
       return res.status(400).json({
-        message: "Please provide your name, email, and password.",
+        message: "Please provide your name, email, password, and password confirmation.",
       });
     }
 
@@ -39,7 +47,10 @@ async function register(req, res) {
       });
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+    if (
+      cleanEmail.length > 254 ||
+      !emailPattern.test(cleanEmail)
+    ) {
       return res.status(400).json({
         message: "Please enter a valid email address.",
       });
@@ -57,10 +68,7 @@ async function register(req, res) {
       });
     }
 
-    if (
-      confirmPassword !== undefined &&
-      confirmPassword !== password
-    ) {
+    if (password !== confirmPassword) {
       return res.status(400).json({
         message: "Passwords do not match.",
       });
@@ -95,6 +103,7 @@ async function register(req, res) {
         email: user.email,
       },
     });
+
   } catch (error) {
     if (error.code === 11000) {
       return res.status(409).json({
@@ -121,7 +130,7 @@ async function register(req, res) {
 // LOGIN
 async function login(req, res) {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body || {};
 
     if (
       typeof email !== "string" ||
@@ -134,8 +143,19 @@ async function login(req, res) {
       });
     }
 
+    const cleanEmail = email.trim().toLowerCase();
+
+    if (
+      cleanEmail.length > 254 ||
+      !emailPattern.test(cleanEmail)
+    ) {
+      return res.status(400).json({
+        message: "Please enter a valid email address.",
+      });
+    }
+
     const user = await User.findOne({
-      email: email.trim().toLowerCase(),
+      email: cleanEmail,
     }).select("+password");
 
     if (!user) {
@@ -166,6 +186,7 @@ async function login(req, res) {
         email: user.email,
       },
     });
+
   } catch (error) {
     console.error("Login error:", error.message);
 

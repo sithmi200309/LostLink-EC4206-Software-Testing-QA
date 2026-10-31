@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import "./App.css";
 import MyReports from "./pages/MyReports";
+import ContactRequests from "./pages/ContactRequests";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
         <Route path="/report" element={<ReportItem />} />
 
         <Route path="/my-reports" element={<MyReports />} />
+
+        <Route path="/contact-requests" element={<ContactRequests />} />
 
         <Route path="/login" element={<Login />} />
 

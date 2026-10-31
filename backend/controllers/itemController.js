@@ -1,27 +1,68 @@
 
+const mongoose = require("mongoose");
 const Item = require("../models/Item");
+
+// Allowed fields users can create or update
+const allowedItemFields = [
+  "status",
+  "name",
+  "category",
+  "location",
+  "date",
+  "description",
+];
+
+// Extract only permitted fields
+const getAllowedFields = (body) => {
+  const filteredData = {};
+
+  allowedItemFields.forEach((field) => {
+    if (body[field] !== undefined) {
+      filteredData[field] = body[field];
+    }
+  });
+
+  return filteredData;
+};
+
+// Handle Mongoose validation errors
+const handleValidationError = (error, res, message) => {
+  if (error.name === "ValidationError") {
+    return res.status(400).json({
+      message,
+      errors: Object.values(error.errors).map(
+        (err) => err.message
+      ),
+    });
+  }
+
+  return null;
+};
 
 // CREATE: Save a new item
 const createItem = async (req, res) => {
   try {
+    const itemData = getAllowedFields(req.body || {});
+
     const item = await Item.create({
-  ...req.body,
-  createdBy: req.user._id,
-});
+      ...itemData,
+      createdBy: req.user._id,
+    });
 
     res.status(201).json({
       message: "Item created successfully",
       item,
     });
   } catch (error) {
-    if (error.name === "ValidationError") {
-      return res.status(400).json({
-        message: "Please check the item details.",
-        errors: Object.values(error.errors).map(
-          (err) => err.message
-        ),
-      });
-    }
+    const validationResponse = handleValidationError(
+      error,
+      res,
+      "Please check the item details."
+    );
+
+    if (validationResponse) return validationResponse;
+
+    console.error("Create item error:", error);
 
     res.status(500).json({
       message: "Failed to create item.",
@@ -39,12 +80,13 @@ const getItems = async (req, res) => {
       items,
     });
   } catch (error) {
+    console.error("Get items error:", error);
+
     res.status(500).json({
       message: "Failed to retrieve items.",
     });
   }
 };
-
 
 // READ: Get reports created by the logged-in user
 const getMyReports = async (req, res) => {
@@ -58,19 +100,20 @@ const getMyReports = async (req, res) => {
       items,
     });
   } catch (error) {
+    console.error("Get my reports error:", error);
+
     res.status(500).json({
       message: "Failed to retrieve your reports.",
     });
   }
 };
 
-
 // READ: Get one item by ID
 const getItemById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!require("mongoose").isValidObjectId(id)) {
+    if (!mongoose.isValidObjectId(id)) {
       return res.status(400).json({
         message: "Invalid item ID.",
       });
@@ -86,6 +129,8 @@ const getItemById = async (req, res) => {
 
     res.status(200).json({ item });
   } catch (error) {
+    console.error("Get item error:", error);
+
     res.status(500).json({
       message: "Failed to retrieve item.",
     });
@@ -93,14 +138,22 @@ const getItemById = async (req, res) => {
 };
 
 // UPDATE: Edit an existing item
-
 const updateItem = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!require("mongoose").isValidObjectId(id)) {
+    if (!mongoose.isValidObjectId(id)) {
       return res.status(400).json({
         message: "Invalid item ID.",
+      });
+    }
+
+    // Only allow permitted item fields to be updated
+    const updateData = getAllowedFields(req.body || {});
+
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({
+        message: "Please provide valid item details to update.",
       });
     }
 
@@ -109,7 +162,7 @@ const updateItem = async (req, res) => {
         _id: id,
         createdBy: req.user._id,
       },
-      req.body,
+      updateData,
       {
         new: true,
         runValidators: true,
@@ -118,7 +171,8 @@ const updateItem = async (req, res) => {
 
     if (!item) {
       return res.status(404).json({
-        message: "Item not found or you do not have permission to update it.",
+        message:
+          "Item not found or you do not have permission to update it.",
       });
     }
 
@@ -127,14 +181,15 @@ const updateItem = async (req, res) => {
       item,
     });
   } catch (error) {
-    if (error.name === "ValidationError") {
-      return res.status(400).json({
-        message: "Please check the updated details.",
-        errors: Object.values(error.errors).map(
-          (err) => err.message
-        ),
-      });
-    }
+    const validationResponse = handleValidationError(
+      error,
+      res,
+      "Please check the updated details."
+    );
+
+    if (validationResponse) return validationResponse;
+
+    console.error("Update item error:", error);
 
     res.status(500).json({
       message: "Failed to update item.",
@@ -142,14 +197,12 @@ const updateItem = async (req, res) => {
   }
 };
 
-
 // DELETE: Remove an item
-
 const deleteItem = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!require("mongoose").isValidObjectId(id)) {
+    if (!mongoose.isValidObjectId(id)) {
       return res.status(400).json({
         message: "Invalid item ID.",
       });
@@ -162,7 +215,8 @@ const deleteItem = async (req, res) => {
 
     if (!item) {
       return res.status(404).json({
-        message: "Item not found or you do not have permission to delete it.",
+        message:
+          "Item not found or you do not have permission to delete it.",
       });
     }
 
@@ -170,6 +224,8 @@ const deleteItem = async (req, res) => {
       message: "Item deleted successfully",
     });
   } catch (error) {
+    console.error("Delete item error:", error);
+
     res.status(500).json({
       message: "Failed to delete item.",
     });

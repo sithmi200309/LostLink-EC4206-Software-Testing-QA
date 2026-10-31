@@ -30,34 +30,51 @@ function Register() {
     setSuccess("");
   }
 
+  function validateForm() {
+    const fullName = formData.fullName.trim();
+    const email = formData.email.trim();
+
+    if (!fullName || !email || !formData.password || !formData.confirmPassword) {
+      return "Please fill in all fields.";
+    }
+
+    if (fullName.length < 2 || fullName.length > 100) {
+      return "Full name must contain between 2 and 100 characters.";
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (email.length > 254 || !emailPattern.test(email)) {
+      return "Please enter a valid email address.";
+    }
+
+    if (formData.password.length < 8) {
+      return "Password must contain at least 8 characters.";
+    }
+
+    if (formData.password.length > 72) {
+      return "Password cannot exceed 72 characters.";
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      return "Passwords do not match.";
+    }
+
+    return null;
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
+
+    if (isSubmitting) return;
 
     setError("");
     setSuccess("");
 
-    if (
-      !formData.fullName.trim() ||
-      !formData.email.trim() ||
-      !formData.password ||
-      !formData.confirmPassword
-    ) {
-      setError("Please fill in all fields.");
-      return;
-    }
+    const validationError = validateForm();
 
-    if (formData.password.length < 8) {
-      setError("Password must contain at least 8 characters.");
-      return;
-    }
-
-    if (formData.password.length > 72) {
-      setError("Password cannot exceed 72 characters.");
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match.");
+    if (validationError) {
+      setError(validationError);
       return;
     }
 
@@ -73,20 +90,19 @@ function Register() {
           },
           body: JSON.stringify({
             fullName: formData.fullName.trim(),
-            email: formData.email.trim(),
+            email: formData.email.trim().toLowerCase(),
             password: formData.password,
             confirmPassword: formData.confirmPassword,
           }),
         }
       );
 
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
         throw new Error(data.message || "Registration failed.");
       }
 
-      // Save the new user and JWT token in AuthContext.
       login({
         user: data.user,
         token: data.token,
@@ -103,7 +119,6 @@ function Register() {
         confirmPassword: "",
       });
 
-      // Redirect to the home page after successful registration.
       navigate("/");
     } catch (error) {
       setError(
@@ -119,7 +134,6 @@ function Register() {
   return (
     <main className="register-page">
       <div className="register-shell">
-        {/* Left welcome panel */}
         <section className="register-welcome">
           <div className="register-welcome-content">
             <p className="register-welcome-eyebrow">
@@ -161,7 +175,6 @@ function Register() {
           </div>
         </section>
 
-        {/* Right registration form */}
         <section className="register-form-panel">
           <div className="register-form-inner">
             <Link to="/" className="register-brand">
@@ -185,27 +198,18 @@ function Register() {
             </div>
 
             {error && (
-              <div
-                className="auth-message auth-error"
-                role="alert"
-              >
+              <div className="auth-message auth-error" role="alert">
                 {error}
               </div>
             )}
 
             {success && (
-              <div
-                className="auth-message auth-success"
-                role="status"
-              >
+              <div className="auth-message auth-success" role="status">
                 {success}
               </div>
             )}
 
-            <form
-              className="register-form"
-              onSubmit={handleSubmit}
-            >
+            <form className="register-form" onSubmit={handleSubmit}>
               <div className="auth-field">
                 <label htmlFor="fullName">
                   Full name <span>*</span>
