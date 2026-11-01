@@ -125,6 +125,7 @@ function Home() {
 
         <p>Helping belongings find their way home.</p>
       </footer>
+       
 
     </main>
   );

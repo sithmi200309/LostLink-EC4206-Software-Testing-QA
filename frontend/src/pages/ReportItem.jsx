@@ -1,7 +1,32 @@
+
 import { useState } from "react";
 import { Link } from "react-router";
+import { useAuth } from "../context/AuthContext";
+
+const categories = [
+  "Bags",
+  "Electronics",
+  "Personal Items",
+  "Documents",
+  "Stationery",
+  "Accessories",
+  "Clothing",
+  "Other",
+];
+
+// Get today's date in YYYY-MM-DD format using local time
+function getTodayDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
 
 function ReportItem() {
+  const { token, isAuthenticated } = useAuth();
+
   const [formData, setFormData] = useState({
     status: "Lost",
     name: "",
@@ -12,6 +37,10 @@ function ReportItem() {
   });
 
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const todayDate = getTodayDate();
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -22,17 +51,126 @@ function ReportItem() {
     }));
 
     setMessage("");
+    setIsSuccess(false);
   }
 
-  function handleSubmit(event) {
+  // Client-side validation
+  function validateForm() {
+    const name = formData.name.trim();
+    const location = formData.location.trim();
+    const description = formData.description.trim();
+
+    if (!name || name.length < 2 || name.length > 100) {
+      return "Item name must contain between 2 and 100 characters.";
+    }
+
+    if (!categories.includes(formData.category)) {
+      return "Please select a valid item category.";
+    }
+
+    if (!location || location.length > 150) {
+      return "Please enter a valid location (maximum 150 characters).";
+    }
+
+    if (!formData.date) {
+      return "Please select the date the item was lost or found.";
+    }
+
+    if (formData.date > todayDate) {
+      return "The reported date cannot be in the future.";
+    }
+
+    if (
+      !description ||
+      description.length < 10 ||
+      description.length > 1000
+    ) {
+      return "Description must contain between 10 and 1000 characters.";
+    }
+
+    return "";
+  }
+
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    // Temporary confirmation until we connect the backend.
-    setMessage(
-      "Your report has been prepared successfully! Database submission will be available soon."
-    );
+    if (isSubmitting) return;
 
-    console.log("Report form data:", formData);
+    setMessage("");
+    setIsSuccess(false);
+
+    if (!isAuthenticated || !token) {
+      setMessage("Please sign in before submitting a report.");
+      return;
+    }
+
+    const validationError = validateForm();
+
+    if (validationError) {
+      setMessage(validationError);
+      return;
+    }
+
+    // Remove unnecessary spaces before sending data
+    const cleanedFormData = {
+      ...formData,
+      name: formData.name.trim(),
+      location: formData.location.trim(),
+      description: formData.description.trim(),
+    };
+
+    try {
+      setIsSubmitting(true);
+
+      const response = await fetch(
+        "http://localhost:5000/api/items",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(cleanedFormData),
+        }
+      );
+
+      // Safely handle the server response
+      let data = {};
+
+      try {
+        data = await response.json();
+      } catch {
+        data = {};
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          data.errors?.join(" ") ||
+          data.message ||
+          "Failed to submit your report. Please try again."
+        );
+      }
+
+      setIsSuccess(true);
+      setMessage("Your report has been saved successfully!");
+
+      setFormData({
+        status: "Lost",
+        name: "",
+        category: "",
+        location: "",
+        date: "",
+        description: "",
+      });
+    } catch (error) {
+      setMessage(
+        error.message === "Failed to fetch"
+          ? "Cannot connect to the server. Please make sure the backend is running."
+          : error.message
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -120,6 +258,7 @@ function ReportItem() {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  minLength={2}
                   maxLength={100}
                 />
               </label>
@@ -134,14 +273,12 @@ function ReportItem() {
                   required
                 >
                   <option value="">Select a category</option>
-                  <option value="Bags">Bags</option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="Personal Items">Personal Items</option>
-                  <option value="Documents">Documents</option>
-                  <option value="Stationery">Stationery</option>
-                  <option value="Accessories">Accessories</option>
-                  <option value="Clothing">Clothing</option>
-                  <option value="Other">Other</option>
+
+                  {categories.map((itemCategory) => (
+                    <option key={itemCategory} value={itemCategory}>
+                      {itemCategory}
+                    </option>
+                  ))}
                 </select>
               </label>
 
@@ -175,7 +312,7 @@ function ReportItem() {
                   name="date"
                   value={formData.date}
                   onChange={handleChange}
-                  max={new Date().toLocaleDateString("en-CA")}
+                  max={todayDate}
                   required
                 />
               </label>
@@ -205,26 +342,43 @@ function ReportItem() {
               <span aria-hidden="true">🛡️</span>
 
               <p>
-                Please provide accurate information. Reports will be
-                stored in LostLink once the database is connected.
+                Your report will be saved securely in LostLink and
+                associated with your account.
               </p>
             </div>
 
             {message && (
-              <p className="report-success-message" role="status">
+              <p
+                className={
+                  isSuccess
+                    ? "report-success-message"
+                    : "report-error-message"
+                }
+                role={isSuccess ? "status" : "alert"}
+              >
                 {message}
               </p>
             )}
 
             <div className="report-form-actions">
-              <button type="submit" className="report-submit-button">
-                Submit Report →
+              <button
+                type="submit"
+                className="report-submit-button"
+                disabled={isSubmitting || !isAuthenticated}
+              >
+                {isSubmitting ? "Submitting..." : "Submit Report →"}
               </button>
 
               <Link to="/browse" className="report-cancel-link">
                 Cancel
               </Link>
             </div>
+
+            {!isAuthenticated && (
+              <p className="report-login-notice">
+                Please <Link to="/login">sign in</Link> to submit a report.
+              </p>
+            )}
           </form>
         </section>
       </div>
