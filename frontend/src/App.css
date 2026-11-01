@@ -3899,3 +3899,1285 @@ select {
     flex-wrap: wrap;
   }
 }
+
+
+/* =========================================
+   LOSTLINK SAGE GREEN THEME
+   Visual overrides — preserve existing layout
+========================================= */
+
+/* Global page colours */
+body {
+  background: #dce8dc;
+  color: #263d30;
+}
+
+/* Navigation */
+.navbar {
+  background: #edf3eb;
+  border-bottom-color: #c5d8c5;
+}
+
+.navbar-logo {
+  color: #263d30;
+}
+
+.logo-icon {
+  background: #426b50;
+}
+
+.nav-links a {
+  color: #64776a;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #426b50;
+}
+
+.login-link {
+  color: #263d30;
+}
+
+.login-link:hover {
+  color: #426b50;
+}
+
+.get-started-btn {
+  background: #426b50;
+}
+
+.get-started-btn:hover {
+  background: #31543d;
+}
+
+/* Homepage */
+.home-page {
+  background: #dce8dc;
+  color: #263d30;
+}
+
+.hero-content h1,
+.section-heading h2,
+.step-card h3,
+.cta-section h2 {
+  color: #263d30;
+}
+
+.hero-label,
+.section-label,
+.hero-content h1 span {
+  color: #426b50;
+}
+
+.hero-description,
+.hero-note,
+.section-heading > p:last-child,
+.step-card p,
+.cta-section p {
+  color: #64776a;
+}
+
+.primary-button,
+.cta-section .primary-button {
+  background: #426b50;
+  color: #ffffff;
+}
+
+.primary-button:hover,
+.cta-section .primary-button:hover {
+  background: #31543d;
+}
+
+.secondary-button {
+  background: #edf3eb;
+  color: #31543d;
+  border-color: #91b497;
+}
+
+.secondary-button:hover {
+  background: #c5d8c5;
+  border-color: #426b50;
+}
+
+.visual-circle,
+.step-icon {
+  background: #c5d8c5;
+}
+
+.search-illustration,
+.floating-card {
+  background: #edf3eb;
+  border-color: #c5d8c5;
+}
+
+.floating-card strong {
+  color: #263d30;
+}
+
+.floating-card small {
+  color: #64776a;
+}
+
+.how-section,
+.step-card,
+.home-footer {
+  background: #edf3eb;
+}
+
+.step-card {
+  border-color: #c5d8c5;
+}
+
+.cta-section {
+  background: #c5d8c5;
+}
+
+.home-footer {
+  border-top-color: #c5d8c5;
+}
+
+.home-footer strong {
+  color: #426b50;
+}
+
+.home-footer p {
+  color: #64776a;
+}
+
+/* Browse Items */
+.browse-page {
+  background: #dce8dc;
+  color: #263d30;
+}
+
+.browse-sidebar,
+.item-card,
+.empty-results {
+  background: #edf3eb;
+  border-color: #c5d8c5;
+}
+
+.sidebar-heading h2,
+.browse-results-heading,
+.item-card-content > h3 {
+  color: #263d30;
+}
+
+.sidebar-heading button,
+.browse-results-heading button,
+.item-card-bottom a {
+  color: #426b50;
+}
+
+.category-options label,
+.browse-results-heading p,
+.item-location,
+.item-card-bottom time {
+  color: #64776a;
+}
+
+.sidebar-tip {
+  background: #dce8dc;
+  color: #426b50;
+}
+
+.status-filters button {
+  background: #edf3eb;
+  border-color: #c5d8c5;
+  color: #426b50;
+}
+
+.status-filters button:hover,
+.status-filters button.active {
+  background: #426b50;
+  border-color: #426b50;
+  color: #ffffff;
+}
+
+.compact-search {
+  background: #edf3eb;
+  border-color: #c5d8c5;
+  color: #263d30;
+}
+
+.compact-search:focus {
+  border-color: #426b50;
+  box-shadow: 0 0 0 3px rgba(66, 107, 80, 0.12);
+}
+
+.item-photo {
+  background: #c5d8c5;
+}
+
+.item-category {
+  background: #dce8dc;
+  color: #426b50;
+}
+
+.empty-results button {
+  background: #426b50;
+  color: #ffffff;
+}
+
+.empty-results button:hover {
+  background: #31543d;
+}
+
+
+/* =========================================
+   LOSTLINK SAGE THEME — LOGIN & REGISTER
+   Colour overrides only
+========================================= */
+
+.login-page {
+  background: #dce8dc;
+}
+
+.login-shell {
+  background: #edf3eb;
+  border-color: #c5d8c5;
+  box-shadow: 0 18px 55px rgba(38, 61, 48, 0.10);
+}
+
+.login-welcome {
+  background: #263d30;
+}
+
+.welcome-eyebrow {
+  color: #c5d8c5;
+}
+
+.welcome-description {
+  color: #dce8dc;
+}
+
+.welcome-feature {
+  color: #edf3eb;
+}
+
+.welcome-feature span {
+  border-color: #91b497;
+}
+
+.campus-image::after {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(38, 61, 48, 0.85)
+  );
+}
+
+.campus-image-caption {
+  background: rgba(38, 61, 48, 0.90);
+  border-color: rgba(237, 243, 235, 0.2);
+}
+
+.login-form-panel {
+  background: #edf3eb;
+}
+
+.login-brand {
+  color: #263d30;
+}
+
+.login-brand .logo-icon {
+  background: #426b50;
+}
+
+.login-eyebrow {
+  color: #426b50;
+}
+
+.login-heading h2 {
+  color: #263d30;
+}
+
+.login-heading p,
+.login-register-link,
+.login-privacy-note,
+.login-page-footer {
+  color: #64776a;
+}
+
+.login-form .auth-field label {
+  color: #263d30;
+}
+
+.login-form .auth-field input {
+  border-color: #c5d8c5;
+  background: #f7faf5;
+  color: #263d30;
+}
+
+.login-form .auth-field input:focus {
+  border-color: #426b50;
+  box-shadow: 0 0 0 3px rgba(66, 107, 80, 0.12);
+}
+
+.login-submit-button {
+  background: #426b50;
+}
+
+.login-submit-button:hover {
+  background: #31543d;
+}
+
+.login-register-link a {
+  color: #426b50;
+}
+
+.login-register-link a:hover {
+  color: #31543d;
+}
+
+
+/* =========================================
+   LOSTLINK SAGE THEME — ACTUAL REGISTER PAGE
+   Colour overrides only; preserve layout
+========================================= */
+
+.register-page {
+  background: #dce8dc !important;
+  color: #263d30 !important;
+}
+
+.register-shell {
+  background: #edf3eb !important;
+  border-color: #c5d8c5 !important;
+  box-shadow: 0 18px 55px rgba(38, 61, 48, 0.10) !important;
+}
+
+.register-welcome {
+  background: #263d30 !important;
+  color: #edf3eb !important;
+}
+
+.register-welcome-eyebrow {
+  color: #c5d8c5 !important;
+}
+
+.register-welcome-content h1 {
+  color: #ffffff !important;
+}
+
+.register-welcome-description {
+  color: #dce8dc !important;
+}
+
+.register-welcome-feature {
+  color: #edf3eb !important;
+}
+
+.register-welcome-feature span {
+  border-color: #91b497 !important;
+}
+
+.register-campus-caption {
+  background: rgba(38, 61, 48, 0.90) !important;
+  color: #ffffff !important;
+}
+
+.register-form-panel {
+  background: #edf3eb !important;
+}
+
+.register-brand {
+  color: #263d30 !important;
+}
+
+.register-brand .logo-icon {
+  background: #426b50 !important;
+  color: #ffffff !important;
+}
+
+.register-eyebrow {
+  color: #426b50 !important;
+}
+
+.register-heading h2 {
+  color: #263d30 !important;
+}
+
+.register-heading p {
+  color: #64776a !important;
+}
+
+/* Registration form fields */
+.register-form .auth-field label {
+  color: #263d30 !important;
+}
+
+.register-form .auth-field input {
+  background: #f7faf5 !important;
+  border-color: #c5d8c5 !important;
+  color: #263d30 !important;
+}
+
+.register-form .auth-field input:focus {
+  border-color: #426b50 !important;
+  box-shadow: 0 0 0 3px rgba(66, 107, 80, 0.12) !important;
+}
+
+.register-field-hint {
+  color: #64776a !important;
+}
+
+.register-submit-button {
+  background: #426b50 !important;
+  color: #ffffff !important;
+}
+
+.register-submit-button:hover {
+  background: #31543d !important;
+}
+
+.register-login-link {
+  color: #64776a !important;
+}
+
+.register-login-link a {
+  color: #426b50 !important;
+}
+
+.register-page-footer {
+  color: #64776a !important;
+}
+
+
+/* =========================================
+   LOSTLINK SAGE THEME — REPORT ITEM PAGE
+   Colour overrides only
+========================================= */
+
+.report-page {
+  background: #dce8dc !important;
+  color: #263d30 !important;
+}
+
+.report-back-link,
+.report-back-link:hover {
+  color: #426b50 !important;
+}
+
+.report-eyebrow {
+  color: #426b50 !important;
+}
+
+.report-header h1 {
+  color: #263d30 !important;
+}
+
+.report-header > p:last-child {
+  color: #64776a !important;
+}
+
+.report-card {
+  background: #edf3eb !important;
+  border-color: #c5d8c5 !important;
+  box-shadow: 0 12px 35px rgba(38, 61, 48, 0.06) !important;
+}
+
+.report-status-field legend {
+  color: #263d30 !important;
+}
+
+.report-status-option {
+  background: #f7faf5 !important;
+  border-color: #c5d8c5 !important;
+}
+
+.report-status-option.selected {
+  background: #dce8dc !important;
+  border-color: #426b50 !important;
+}
+
+.report-status-option input {
+  accent-color: #426b50 !important;
+}
+
+.report-status-option strong {
+  color: #263d30 !important;
+}
+
+.report-status-option small {
+  color: #64776a !important;
+}
+
+.report-field > span {
+  color: #263d30 !important;
+}
+
+.report-field input,
+.report-field select,
+.report-field textarea {
+  background: #f7faf5 !important;
+  border-color: #c5d8c5 !important;
+  color: #263d30 !important;
+}
+
+.report-field input:focus,
+.report-field select:focus,
+.report-field textarea:focus {
+  border-color: #426b50 !important;
+  box-shadow: 0 0 0 3px rgba(66, 107, 80, 0.12) !important;
+}
+
+.report-field input::placeholder,
+.report-field textarea::placeholder {
+  color: #87998b !important;
+}
+
+.report-field > small {
+  color: #64776a !important;
+}
+
+.report-form-notice {
+  background: #dce8dc !important;
+}
+
+.report-form-notice p {
+  color: #426b50 !important;
+}
+
+.report-success-message {
+  background: #dcefe0 !important;
+  color: #31543d !important;
+}
+
+.report-form-actions {
+  border-top-color: #c5d8c5 !important;
+}
+
+.report-submit-button {
+  background: #426b50 !important;
+  color: #ffffff !important;
+}
+
+.report-submit-button:hover {
+  background: #31543d !important;
+}
+
+.report-cancel-link {
+  color: #64776a !important;
+}
+
+.report-cancel-link:hover {
+  color: #426b50 !important;
+}
+
+
+/* =========================================
+   LOSTLINK SAGE THEME — MY REPORTS PAGE
+   Colour overrides only
+========================================= */
+
+.my-reports-page {
+  background: #dce8dc !important;
+  color: #263d30 !important;
+}
+
+.my-reports-header h1 {
+  color: #263d30 !important;
+}
+
+.my-reports-header p {
+  color: #64776a !important;
+}
+
+/* Statistics cards */
+.my-report-stat {
+  background: #edf3eb !important;
+  border-color: #c5d8c5 !important;
+  box-shadow: 0 3px 12px rgba(38, 61, 48, 0.06) !important;
+}
+
+.my-report-stat h3 {
+  color: #64776a !important;
+}
+
+.my-report-stat p {
+  color: #426b50 !important;
+}
+
+/* Individual report cards */
+.my-report-card {
+  background: #edf3eb !important;
+  border-color: #c5d8c5 !important;
+  box-shadow: 0 3px 12px rgba(38, 61, 48, 0.06) !important;
+}
+
+.my-report-card-info h2 {
+  color: #263d30 !important;
+}
+
+.my-report-card-info p {
+  color: #64776a !important;
+}
+
+.my-report-card-info strong {
+  color: #426b50 !important;
+}
+
+/* Lost and Found badges */
+.my-report-status.lost {
+  background: #f8e8e5 !important;
+  color: #b94a42 !important;
+}
+
+.my-report-status.found {
+  background: #dcefe0 !important;
+  color: #31543d !important;
+}
+
+/* View Details button */
+.my-report-actions a:first-child {
+  background: #426b50 !important;
+  border-color: #426b50 !important;
+  color: #ffffff !important;
+}
+
+.my-report-actions a:first-child:hover {
+  background: #31543d !important;
+  border-color: #31543d !important;
+}
+
+/* Edit button */
+.my-report-actions a:nth-child(2) {
+  background: #dce8dc !important;
+  border-color: #c5d8c5 !important;
+  color: #31543d !important;
+}
+
+.my-report-actions a:nth-child(2):hover {
+  background: #c5d8c5 !important;
+}
+
+/* Delete button — keep red for a clear warning */
+.my-report-actions button {
+  background: #edf3eb !important;
+  color: #c43d3d !important;
+  border-color: #dc7777 !important;
+}
+
+.my-report-actions button:hover {
+  background: #f8e8e5 !important;
+}
+
+/* Empty reports section */
+.my-reports-empty {
+  background: #edf3eb !important;
+  border-color: #c5d8c5 !important;
+}
+
+.my-reports-empty h2 {
+  color: #263d30 !important;
+}
+
+.my-reports-empty p {
+  color: #64776a !important;
+}
+
+.my-reports-empty a {
+  background: #426b50 !important;
+  color: #ffffff !important;
+}
+
+.my-reports-empty a:hover {
+  background: #31543d !important;
+}
+
+/* Delete confirmation modal */
+.delete-modal h2 {
+  color: #263d30 !important;
+}
+
+.delete-modal p {
+  color: #64776a !important;
+}
+
+.cancel-delete-btn {
+  background: #edf3eb !important;
+  border-color: #c5d8c5 !important;
+  color: #31543d !important;
+}
+
+
+/* =========================================
+   LOSTLINK SAGE THEME — CONTACT REQUESTS
+   Colour overrides only
+========================================= */
+
+.contact-requests-page {
+  color: #263d30;
+}
+
+/* Page heading */
+.contact-requests-header h1 {
+  color: #263d30 !important;
+}
+
+.contact-requests-header p {
+  color: #64776a !important;
+}
+
+/* Request count */
+.request-count {
+  background: #c5d8c5 !important;
+  color: #31543d !important;
+}
+
+/* Contact request cards */
+.contact-request-card {
+  background: #edf3eb !important;
+  border-color: #c5d8c5 !important;
+  box-shadow: 0 4px 15px rgba(38, 61, 48, 0.07) !important;
+}
+
+.contact-request-card-header h2 {
+  color: #263d30 !important;
+}
+
+.request-item-category {
+  color: #64776a !important;
+}
+
+/* Request status — preserve clear status colours */
+.request-status.pending {
+  background: #fff0cf !important;
+  color: #8a5b00 !important;
+}
+
+.request-status.accepted {
+  background: #dcefe0 !important;
+  color: #31543d !important;
+}
+
+.request-status.rejected {
+  background: #f8e8e5 !important;
+  color: #b94a42 !important;
+}
+
+/* Item details */
+.request-item-details {
+  color: #526b59 !important;
+  border-top-color: #c5d8c5 !important;
+  border-bottom-color: #c5d8c5 !important;
+}
+
+.request-sender {
+  color: #426b50 !important;
+}
+
+/* Message box */
+.request-message {
+  background: #dce8dc !important;
+  color: #263d30 !important;
+  border: 1px solid #c5d8c5 !important;
+}
+
+.request-message strong {
+  color: #263d30 !important;
+}
+
+.request-message p {
+  color: #526b59 !important;
+}
+
+/* Date */
+.request-date {
+  color: #788b7c !important;
+}
+
+/* Empty requests section */
+.empty-requests {
+  background: #edf3eb !important;
+  border-color: #c5d8c5 !important;
+  box-shadow: 0 4px 15px rgba(38, 61, 48, 0.06) !important;
+}
+
+.empty-requests h2 {
+  color: #263d30 !important;
+}
+
+.empty-requests p {
+  color: #64776a !important;
+}
+
+/* View My Reports button */
+.requests-back-button {
+  background: #426b50 !important;
+  color: #ffffff !important;
+}
+
+.requests-back-button:hover {
+  background: #31543d !important;
+}
+
+/* Loading and error messages */
+.requests-message {
+  color: #64776a !important;
+}
+
+.requests-error {
+  color: #b94a42 !important;
+  background: #f8e8e5 !important;
+}
+
+
+/* Browse Items — Sage Green Edit Button */
+
+.edit-item-btn,
+.edit-item-btn:link,
+.edit-item-btn:visited {
+  background-color: #dce8dc !important;
+  color: #31543d !important;
+  border: 1px solid #c5d8c5 !important;
+  box-shadow: none !important;
+}
+
+.edit-item-btn:hover {
+  background-color: #c5d8c5 !important;
+  color: #263d30 !important;
+  border-color: #91b497 !important;
+}
+
+.edit-item-btn:focus,
+.edit-item-btn:focus-visible,
+.edit-item-btn:active {
+  background-color: #dce8dc !important;
+  color: #31543d !important;
+  border-color: #91b497 !important;
+  outline: 2px solid #91b497 !important;
+  outline-offset: 2px;
+}
+
+/* =========================================
+   SAGE GREEN NAVBAR ACCOUNT STYLING
+========================================= */
+
+/* Logged-in user name */
+.navbar .nav-user-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #263d30;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Profile circle */
+.navbar .profile-icon {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #c5d8c5;
+  color: #355b42;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+/* Logout button */
+.navbar .logout-btn {
+  padding: 11px 22px;
+  background: #426b50;
+  border: 1px solid #426b50;
+  border-radius: 9px;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navbar .logout-btn:hover {
+  background: #34563f;
+  border-color: #34563f;
+}
+
+/* Login link */
+.navbar .login-link {
+  color: #355b42;
+  font-weight: 600;
+}
+
+.navbar .login-link:hover {
+  color: #263d30;
+}
+
+/* Get Started button */
+.navbar .get-started-btn {
+  background: #426b50;
+  border: 1px solid #426b50;
+  color: #ffffff;
+}
+
+.navbar .get-started-btn:hover {
+  background: #34563f;
+  border-color: #34563f;
+}
+/* Suggested category images in Browse Items */
+.item-photo {
+  width: 100%;
+  height: 215px;
+  overflow: hidden;
+  background-color: #c5d8c5;
+  border-radius: 12px 12px 0 0;
+}
+
+.item-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.35s ease;
+}
+
+.item-card:hover .item-photo img {
+  transform: scale(1.05);
+}
+
+
+/* Category image on the Item Details page */
+.details-image.details-category-image {
+  width: 100%;
+  height: 320px;
+  min-height: 260px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  display: block;
+}
+
+.details-image.details-category-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 768px) {
+  .details-image.details-category-image {
+    height: 240px;
+    min-height: 200px;
+  }
+}
+
+
+/* Active navigation link styling */
+.nav-links a {
+  padding: 9px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+  background-color: #dce8dc;
+  color: #263d30;
+}
+
+/* Highlight the current page */
+.nav-links a.active {
+  background-color: #c5d8c5;
+  color: #263d30;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   LOSTLINK SAGE THEME — ITEM DETAILS PAGE
+   Colour overrides only
+========================================= */
+
+/* Main page background */
+.details-page {
+  background: #dce8dc !important;
+  color: #263d30 !important;
+}
+
+.details-container {
+  color: #263d30 !important;
+}
+
+/* Back to Browse Items link */
+.details-back-link,
+.details-back-link:visited {
+  color: #426b50 !important;
+}
+
+.details-back-link:hover {
+  color: #31543d !important;
+}
+
+/* Main item details card */
+.details-card {
+  background: #edf3eb !important;
+  border: 1px solid #c5d8c5 !important;
+  color: #263d30 !important;
+  box-shadow: 0 8px 25px rgba(38, 61, 48, 0.06) !important;
+}
+
+.details-card h1,
+.details-card h2,
+.details-card h3 {
+  color: #263d30 !important;
+}
+
+/* Category label */
+.details-category {
+  color: #426b50 !important;
+}
+
+/* Item information */
+.details-information {
+  border-top-color: #c5d8c5 !important;
+  border-bottom-color: #c5d8c5 !important;
+}
+
+.details-information strong {
+  color: #64776a !important;
+}
+
+.details-information span {
+  color: #263d30 !important;
+}
+
+/* Item description */
+.details-description h2 {
+  color: #263d30 !important;
+}
+
+.details-description p {
+  color: #64776a !important;
+}
+
+/* Important notice */
+.details-notice {
+  background: #dce8dc !important;
+  border-color: #c5d8c5 !important;
+  color: #263d30 !important;
+}
+
+.details-notice strong {
+  color: #31543d !important;
+}
+
+.details-notice p {
+  color: #526b59 !important;
+}
+
+/* Report an Item button */
+.details-report-button,
+.details-report-button:visited {
+  background: #426b50 !important;
+  border-color: #426b50 !important;
+  color: #ffffff !important;
+}
+
+.details-report-button:hover {
+  background: #31543d !important;
+  border-color: #31543d !important;
+}
+
+/* Right-side cards */
+.details-side-card {
+  background: #edf3eb !important;
+  border: 1px solid #c5d8c5 !important;
+  color: #263d30 !important;
+  box-shadow: 0 8px 25px rgba(38, 61, 48, 0.06) !important;
+}
+
+.details-side-card h2,
+.details-side-card h3 {
+  color: #263d30 !important;
+}
+
+.details-side-card > p {
+  color: #64776a !important;
+}
+
+/* Owner information */
+.details-owner strong {
+  color: #263d30 !important;
+}
+
+.details-owner small {
+  color: #64776a !important;
+}
+
+.details-owner-avatar {
+  background: #c5d8c5 !important;
+  color: #31543d !important;
+}
+
+/* Safety label */
+.details-safety-label {
+  color: #426b50 !important;
+}
+
+/* Contact Reporter / Contact Finder button */
+.details-contact-button {
+  background: #426b50 !important;
+  border-color: #426b50 !important;
+  color: #ffffff !important;
+}
+
+.details-contact-button:hover {
+  background: #31543d !important;
+  border-color: #31543d !important;
+}
+
+.details-contact-button:disabled {
+  background: #91b497 !important;
+  border-color: #91b497 !important;
+  cursor: not-allowed;
+}
+
+/* Private information note */
+.details-private-note {
+  color: #64776a !important;
+}
+
+.details-private-note a {
+  color: #426b50 !important;
+}
+
+.details-private-note a:hover {
+  color: #31543d !important;
+}
+
+/* Contact request form */
+.contact-request-form {
+  background: #dce8dc !important;
+  border-color: #c5d8c5 !important;
+}
+
+.contact-request-form h3 {
+  color: #263d30 !important;
+}
+
+.contact-request-form p {
+  color: #64776a !important;
+}
+
+.contact-request-form label {
+  color: #263d30 !important;
+}
+
+.contact-request-form textarea {
+  background: #f7faf5 !important;
+  border: 1px solid #c5d8c5 !important;
+  color: #263d30 !important;
+}
+
+.contact-request-form textarea:focus {
+  border-color: #426b50 !important;
+  box-shadow: 0 0 0 3px rgba(66, 107, 80, 0.12) !important;
+  outline: none;
+}
+
+.contact-request-form textarea::placeholder {
+  color: #87998b !important;
+}
+
+.contact-request-form small {
+  color: #64776a !important;
+}
+
+/* Cancel button */
+.contact-cancel-button {
+  background: #edf3eb !important;
+  border: 1px solid #c5d8c5 !important;
+  color: #31543d !important;
+}
+
+.contact-cancel-button:hover {
+  background: #c5d8c5 !important;
+}
+
+/* Contact request success */
+.contact-success {
+  background: #dcefe0 !important;
+  border-color: #91b497 !important;
+  color: #31543d !important;
+}
+
+.contact-success strong,
+.contact-success p {
+  color: #31543d !important;
+}
+
+/* Contact request errors — retain warning red */
+.contact-error {
+  color: #b94a42 !important;
+  background: #f8e8e5 !important;
+}
+
+/* Safe Collection section */
+.details-location-heading {
+  color: #263d30 !important;
+}
+
+.details-location-heading span {
+  color: #426b50 !important;
+}
+
+.details-collection-list {
+  color: #64776a !important;
+}
+
+.details-collection-list li::marker {
+  color: #426b50 !important;
+}
+
+/* Helpful reminder card */
+.details-search-card {
+  background: #c5d8c5 !important;
+  border: 1px solid #91b497 !important;
+  color: #263d30 !important;
+}
+
+.details-search-card strong {
+  color: #263d30 !important;
+}
+
+.details-search-card p {
+  color: #526b59 !important;
+}
+
+/* Sidebar Report button */
+.details-sidebar-report,
+.details-sidebar-report:visited {
+  background: #426b50 !important;
+  border-color: #426b50 !important;
+  color: #ffffff !important;
+}
+
+.details-sidebar-report:hover {
+  background: #31543d !important;
+  border-color: #31543d !important;
+}
+
+/* Unavailable item message */
+.details-unavailable {
+  background: #edf3eb !important;
+  border-color: #c5d8c5 !important;
+  color: #263d30 !important;
+}
+
+.details-unavailable h1 {
+  color: #263d30 !important;
+}
+
+.details-unavailable p {
+  color: #64776a !important;
+}
+
+.details-unavailable a {
+  color: #426b50 !important;
+}

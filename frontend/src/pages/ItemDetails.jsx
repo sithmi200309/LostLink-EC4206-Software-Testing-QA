@@ -3,6 +3,33 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { useAuth } from "../context/AuthContext";
 
+// Keep these image URLs consistent with BrowseItems.jsx
+export const categoryImages = {
+  Bags:
+    "https://images.unsplash.com/photo-1642375352634-ad952121fdb3?auto=format&fit=crop&w=1000&q=85",
+
+  Electronics:
+    "https://images.unsplash.com/photo-1661961110144-12ac85918e40?auto=format&fit=crop&w=1000&q=85",
+
+  "Personal Items":
+    "https://images.unsplash.com/photo-1755719401551-9e2b4be00555?auto=format&fit=crop&w=1000&q=85",
+
+  Documents:
+    "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=1000&q=85",
+
+  Stationery:
+    "https://images.unsplash.com/photo-1726726192241-a36ce220c2b3?auto=format&fit=crop&w=1000&q=85",
+
+  Accessories:
+    "https://images.unsplash.com/photo-1770331168808-18b4ec8643f7?auto=format&fit=crop&w=1000&q=85",
+
+  Clothing:
+    "https://images.unsplash.com/photo-1777394615575-ec1da2f97c31?auto=format&fit=crop&w=1000&q=85",
+
+  Other:
+    "https://images.unsplash.com/photo-1755719401551-9e2b4be00555?auto=format&fit=crop&w=1000&q=85",
+};
+
 function ItemDetails() {
   const { id } = useParams();
   const { isAuthenticated, user, token } = useAuth();
@@ -94,6 +121,7 @@ function ItemDetails() {
       setContactSuccess(
         "Your contact request has been sent successfully!"
       );
+
       setMessage("");
       setShowContactForm(false);
     } catch (err) {
@@ -138,6 +166,10 @@ function ItemDetails() {
     isAuthenticated &&
     String(itemOwnerId) === String(currentUserId);
 
+  // Get the representative image for this item's category
+  const suggestedImage =
+    categoryImages[item.category] || categoryImages.Other;
+
   // Format the report date
   const formattedDate = new Date(item.date).toLocaleDateString(
     "en-GB",
@@ -173,14 +205,15 @@ function ItemDetails() {
           {/* LEFT COLUMN */}
           <section className="details-main">
 
-            <div
-              className={`details-image ${item.color || "blue"}`}
-              role="img"
-              aria-label={`Illustration of ${item.name}`}
-            >
-              <span aria-hidden="true">
-                {item.icon || "📦"}
-              </span>
+            {/* Suggested category image */}
+            <div className="details-image details-category-image">
+              <img
+                src={suggestedImage}
+                alt={`Representative image for ${item.category}`}
+                onError={(event) => {
+                  event.currentTarget.style.display = "none";
+                }}
+              />
             </div>
 
             <article className="details-card">
@@ -277,7 +310,6 @@ function ItemDetails() {
 
               <div className="details-safety-label">
                 <span aria-hidden="true">✓</span>
-
                 <span>
                   Arrange collection through a safe,
                   approved university location.
@@ -346,9 +378,7 @@ function ItemDetails() {
                       <textarea
                         id="contactMessage"
                         value={message}
-                        onChange={(e) =>
-                          setMessage(e.target.value)
-                        }
+                        onChange={(e) => setMessage(e.target.value)}
                         placeholder="Write your message here..."
                         rows="5"
                         minLength="10"

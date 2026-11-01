@@ -11,6 +11,10 @@ function Navbar() {
     navigate("/");
   }
 
+  // Apply the active class automatically to the current page.
+  const getNavLinkClass = ({ isActive }) =>
+    isActive ? "nav-link active" : "nav-link";
+
   return (
     <header className="navbar">
       <div className="navbar-container">
@@ -53,14 +57,27 @@ function Navbar() {
 
         {/* Main navigation links */}
         <nav className="nav-links">
-          <NavLink to="/" end>Home</NavLink>
-          <NavLink to="/browse">Browse Items</NavLink>
-          <NavLink to="/report">Report an Item</NavLink>
+          <NavLink to="/" end className={getNavLinkClass}>
+            Home
+          </NavLink>
+
+          <NavLink to="/browse" className={getNavLinkClass}>
+            Browse Items
+          </NavLink>
+
+          <NavLink to="/report" className={getNavLinkClass}>
+            Report an Item
+          </NavLink>
 
           {isAuthenticated && (
             <>
-              <NavLink to="/my-reports">My Reports</NavLink>
-              <NavLink to="/contact-requests">Contact Requests</NavLink>
+              <NavLink to="/my-reports" className={getNavLinkClass}>
+                My Reports
+              </NavLink>
+
+              <NavLink to="/contact-requests" className={getNavLinkClass}>
+                Contact Requests
+              </NavLink>
             </>
           )}
         </nav>
@@ -71,9 +88,9 @@ function Navbar() {
             <>
               <span className="nav-user-name">
                 <span className="profile-icon">
-                  {user.fullName.charAt(0).toUpperCase()}
+                  {user?.fullName?.charAt(0).toUpperCase()}
                 </span>
-                {user.fullName}
+                {user?.fullName}
               </span>
 
               <button

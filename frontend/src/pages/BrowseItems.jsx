@@ -14,6 +14,34 @@ const categories = [
   "Other",
 ];
 
+// Representative images for each category.
+// These are category illustrations, not photographs of the exact reported item.
+export const categoryImages = {
+  Bags:
+    "https://images.unsplash.com/photo-1642375352634-ad952121fdb3?auto=format&fit=crop&w=1000&q=85",
+
+  Electronics:
+    "https://images.unsplash.com/photo-1661961110144-12ac85918e40?auto=format&fit=crop&w=1000&q=85",
+
+  "Personal Items":
+    "https://images.unsplash.com/photo-1755719401551-9e2b4be00555?auto=format&fit=crop&w=1000&q=85",
+
+  Documents:
+    "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&w=1000&q=85",
+
+  Stationery:
+    "https://images.unsplash.com/photo-1726726192241-a36ce220c2b3?auto=format&fit=crop&w=1000&q=85",
+
+  Accessories:
+    "https://images.unsplash.com/photo-1770331168808-18b4ec8643f7?auto=format&fit=crop&w=1000&q=85",
+
+  Clothing:
+    "https://images.unsplash.com/photo-1777394615575-ec1da2f97c31?auto=format&fit=crop&w=1000&q=85",
+
+  Other:
+    "https://images.unsplash.com/photo-1755719401551-9e2b4be00555?auto=format&fit=crop&w=1000&q=85",
+};
+
 function BrowseItems() {
   const { user, token, isAuthenticated } = useAuth();
 
@@ -41,9 +69,7 @@ function BrowseItems() {
         setLoading(true);
         setError("");
 
-        const response = await fetch(
-          "http://localhost:5000/api/items"
-        );
+        const response = await fetch("http://localhost:5000/api/items");
 
         if (!response.ok) {
           throw new Error("Unable to load items.");
@@ -100,15 +126,11 @@ function BrowseItems() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.message || "Failed to delete item."
-        );
+        throw new Error(data.message || "Failed to delete item.");
       }
 
       setItems((previousItems) =>
-        previousItems.filter(
-          (item) => item._id !== selectedItemId
-        )
+        previousItems.filter((item) => item._id !== selectedItemId)
       );
 
       setShowDeleteModal(false);
@@ -248,12 +270,9 @@ function BrowseItems() {
 
           <label className="sidebar-field">
             <span>Campus location</span>
-
             <select
               value={location}
-              onChange={(event) =>
-                setLocation(event.target.value)
-              }
+              onChange={(event) => setLocation(event.target.value)}
             >
               <option value="All campus locations">
                 All campus locations
@@ -269,12 +288,9 @@ function BrowseItems() {
 
           <label className="sidebar-field">
             <span>Date reported</span>
-
             <select
               value={dateRange}
-              onChange={(event) =>
-                setDateRange(event.target.value)
-              }
+              onChange={(event) => setDateRange(event.target.value)}
             >
               <option>All dates</option>
               <option>Last 7 days</option>
@@ -294,9 +310,7 @@ function BrowseItems() {
               {["All", "Lost", "Found"].map((itemStatus) => (
                 <button
                   key={itemStatus}
-                  className={
-                    status === itemStatus ? "active" : ""
-                  }
+                  className={status === itemStatus ? "active" : ""}
                   onClick={() => setStatus(itemStatus)}
                 >
                   {itemStatus === "All" ? "All items" : itemStatus}
@@ -324,12 +338,9 @@ function BrowseItems() {
             <div className="browse-results-actions">
               <label className="sort-control">
                 <span>Sort by:</span>
-
                 <select
                   value={sortBy}
-                  onChange={(event) =>
-                    setSortBy(event.target.value)
-                  }
+                  onChange={(event) => setSortBy(event.target.value)}
                   aria-label="Sort items"
                 >
                   <option value="newest">Newest First</option>
@@ -364,10 +375,21 @@ function BrowseItems() {
                   isAuthenticated &&
                   String(itemOwnerId) === String(user?.id);
 
+                const suggestedImage =
+                  categoryImages[item.category] || categoryImages.Other;
+
                 return (
                   <article className="item-card" key={item._id}>
+                    {/* Suggested category image */}
                     <div className="item-photo item-photo-placeholder">
-                      <span aria-hidden="true">📦</span>
+                      <img
+                        src={suggestedImage}
+                        alt={`Representative image for ${item.category}`}
+                        loading="lazy"
+                        onError={(event) => {
+                          event.currentTarget.style.display = "none";
+                        }}
+                      />
                     </div>
 
                     <div className="item-card-content">
@@ -430,9 +452,7 @@ function BrowseItems() {
             <div className="empty-results">
               <h3>No matching items found</h3>
               <p>Try changing your search or filters.</p>
-              <button onClick={resetFilters}>
-                Reset filters
-              </button>
+              <button onClick={resetFilters}>Reset filters</button>
             </div>
           )}
         </section>
@@ -447,13 +467,9 @@ function BrowseItems() {
             aria-modal="true"
             aria-labelledby="delete-modal-title"
           >
-            <div className="delete-modal-icon">
-              🗑️
-            </div>
+            <div className="delete-modal-icon">🗑️</div>
 
-            <h2 id="delete-modal-title">
-              Delete this item?
-            </h2>
+            <h2 id="delete-modal-title">Delete this item?</h2>
 
             <p>
               Are you sure you want to delete this report?
@@ -461,9 +477,7 @@ function BrowseItems() {
             </p>
 
             {deleteError && (
-              <p className="delete-modal-error">
-                {deleteError}
-              </p>
+              <p className="delete-modal-error">{deleteError}</p>
             )}
 
             <div className="delete-modal-actions">

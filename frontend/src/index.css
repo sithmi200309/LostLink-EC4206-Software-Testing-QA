@@ -2,23 +2,29 @@
 
 :root {
   font-family: "DM Sans", sans-serif;
-
-  color: #172b4d;
-  background: #f7f9fc;
+  color: #263d30;
+  background: #dce8dc;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --primary: #2457d6;
-  --primary-dark: #1945b3;
-  --navy: #14284b;
-  --text: #172b4d;
-  --text-muted: #68778d;
-  --background: #f7f9fc;
-  --white: #ffffff;
-  --border: #e5eaf2;
+  /* LostLink Sage Green Theme */
+  --primary: #426b50;
+  --primary-dark: #31543d;
+  --navy: #263d30;
+  --text: #263d30;
+  --text-muted: #64776a;
+  --background: #dce8dc;
+  --white: #edf3eb;
+  --border: #c5d8c5;
+
+  --sage-main: #dce8dc;
+  --sage-secondary: #c5d8c5;
+  --sage-light: #edf3eb;
+  --sage-accent: #91b497;
+  --forest-green: #263d30;
 }
 
 * {
@@ -33,6 +39,8 @@ html {
 body {
   min-width: 320px;
   margin: 0;
+  background: var(--background);
+  color: var(--text);
 }
 
 body,
@@ -58,4 +66,8 @@ a {
 img {
   display: block;
   max-width: 100%;
+}
+
+* {
+  font-family: "Inter", sans-serif;
 }

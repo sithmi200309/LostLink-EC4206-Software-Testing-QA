@@ -178,10 +178,8 @@ function Register() {
         <section className="register-form-panel">
           <div className="register-form-inner">
             <Link to="/" className="register-brand">
-              <span className="logo-icon" aria-hidden="true">
-                ∞
-              </span>
-              <span>LostLink</span>
+              
+              
             </Link>
 
             <div className="register-heading">
