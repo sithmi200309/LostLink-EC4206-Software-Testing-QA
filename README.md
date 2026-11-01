@@ -8,7 +8,11 @@ The system allows users to report lost or found items, browse reported items, se
 
 ## 2. Problem Statement
 
-Managing lost and found belongings within a university can be difficult when information is shared through disconnected communication channels. LostLink aims to simplify this process by providing a centralized platform where users can publish reports and communicate with relevant reporters.
+LostLink provides a centralized platform where university community members can publish lost and found item reports.
+
+Instead of relying on disconnected communication channels, users can browse available reports, find relevant items, and contact the individuals who reported them.
+
+The application follows a MERN-based architecture, using React.js for the frontend, Node.js and Express.js for the backend, and MongoDB for data storage.
 
 ## 3. Main Features
 
@@ -25,8 +29,9 @@ Managing lost and found belongings within a university can be difficult when inf
 - Delete personal item reports.
 
 ### Search, Filter and Sort
-- Search by item name, location and description.
-- Filter by item status and category.
+- Search reports by item name, location, and description.
+- Filter items by status (Lost or Found).
+- Filter by category.
 - Filter by location and date.
 - Sort reports by date and item name.
 
@@ -34,11 +39,13 @@ Managing lost and found belongings within a university can be difficult when inf
 - Send contact requests to item reporters.
 - View received contact requests.
 - Prevent duplicate pending contact requests.
+- Prevent users from sending contact requests for their own items.
 
 ### Validation and Error Handling
 - Client-side and server-side validation.
 - Input validation and error messages.
 - Authentication and authorization checks.
+- Ownership verification when editing or deleting reports.
 
 ## 4. Technology Stack
 
@@ -66,6 +73,11 @@ Managing lost and found belongings within a university can be difficult when inf
 - Git and GitHub
 - Postman
 - MongoDB Atlas
+
+### Architecture Diagram
+
+![Architecture](Diagrams/System%20Architecture.png)
+
 
 ## 5. Project Structure
 
@@ -112,6 +124,10 @@ LostLink uses MongoDB with three main collections:
 - **ContactRequest:** Stores contact requests between users regarding reported items.
 
 The collections are connected using MongoDB ObjectId references.
+
+### ER Diagram
+
+![ER Diagram](Diagrams/ER%20DIAGRAM.jpeg)
 
 ## 7. Installation and Setup
 
@@ -187,30 +203,26 @@ LostLink provides RESTful API endpoints for authentication, item management and 
 
 ### Item Routes
 
-| Method | Endpoint | Authentication | Description |
-|---|---|---|---|
-| GET | `/api/items` | Public | Retrieve all item reports |
-| GET | `/api/items/my-reports` | Required | Retrieve reports belonging to the logged-in user |
-| GET | `/api/items/:id` | Public | Retrieve an individual item |
-| POST | `/api/items` | Required | Create a new item report |
-| PUT | `/api/items/:id` | Required | Update an existing item report |
-| DELETE | `/api/items/:id` | Required | Delete an item report |
+ Method       Endpoint              Authentication                    Description 
+
+ GET        `/api/items`              Public                 Retrieve all item reports 
+ GET        `/api/items/my-reports`   Required               Retrieve reports belonging to the logged-in user 
+ GET        `/api/items/:id`          Public                 Retrieve an individual item 
+ POST       `/api/items`              Required               Create a new item report 
+ PUT        `/api/items/:id`          Required               Update an existing item report 
+ DELETE     `/api/items/:id`          Required               Delete an item report 
 
 ### Contact Request Routes
 
-| Method | Endpoint | Authentication | Description |
-|---|---|---|---|
-| POST | `/api/contact` | Required | Send a contact request |
-| GET | `/api/contact/received` | Required | Retrieve contact requests received by the logged-in user |
+ Method        Endpoint             Authentication                      Description 
+
+ POST        `/api/contact`           Required               Send a contact request 
+ GET         `/api/contact/received`  Required               Retrieve contact requests received by the logged-in user 
 
 **Note:** Protected endpoints require a valid JWT access token in the HTTP Authorization header using the Bearer token format.
 
-## 10. Future Improvements
 
-- Implement a reply or messaging feature for contact requests.
-- Introduce additional communication features between users.
-
-## 11. Contributors
+## 10. Contributors
 
 RATHNAYAKE M.S.S. 
 EG/2023/5832
