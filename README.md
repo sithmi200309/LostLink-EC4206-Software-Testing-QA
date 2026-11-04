@@ -203,21 +203,21 @@ LostLink provides RESTful API endpoints for authentication, item management and 
 
 ### Item Routes
 
- Method       Endpoint              Authentication                    Description 
-
- GET        `/api/items`              Public                 Retrieve all item reports 
- GET        `/api/items/my-reports`   Required               Retrieve reports belonging to the logged-in user 
- GET        `/api/items/:id`          Public                 Retrieve an individual item 
- POST       `/api/items`              Required               Create a new item report 
- PUT        `/api/items/:id`          Required               Update an existing item report 
- DELETE     `/api/items/:id`          Required               Delete an item report 
+| Method | Endpoint | Authentication | Description |
+|---|---|---|---|
+| GET | `/api/items` | Public | Retrieve all item reports |
+| GET | `/api/items/my-reports` | Required | Retrieve reports belonging to the logged-in user |
+| GET | `/api/items/:id` | Public | Retrieve an individual item |
+| POST | `/api/items` | Required | Create a new item report |
+| PUT | `/api/items/:id` | Required | Update an existing item report |
+| DELETE | `/api/items/:id` | Required | Delete an item report |
 
 ### Contact Request Routes
 
- Method        Endpoint             Authentication                      Description 
-
- POST        `/api/contact`           Required               Send a contact request 
- GET         `/api/contact/received`  Required               Retrieve contact requests received by the logged-in user 
+| Method | Endpoint | Authentication | Description |
+|---|---|---|---|
+| POST | `/api/contact` | Required | Send a contact request |
+| GET | `/api/contact/received` | Required | Retrieve contact requests received by the logged-in user |
 
 **Note:** Protected endpoints require a valid JWT access token in the HTTP Authorization header using the Bearer token format.
 
