@@ -1,16 +1,22 @@
 # Dependencies
 node_modules/
 
-# Environment variables and secrets
+# Environment variables
 .env
 .env.*
-
-# Keep the example environment file
 !.env.example
 
-# Build output
+# Build files
 dist/
 build/
 
-# Debug logs
+# Logs
+*.log
 npm-debug.log*
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
