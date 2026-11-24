@@ -1,71 +1,76 @@
-# LostLink – Test Environment and Test Data Record
+# Test Environment and Test Data Record – LostLink
 
-## 1. Purpose
+## 1. Introduction
 
-This document describes the hardware, software, application configuration and test data used to evaluate the LostLink University Lost and Found Management System.
+This document describes the test environment and test data used during the functional testing of the LostLink – University Lost and Found Management System.
 
-## 2. Software Test Environment
+The purpose is to maintain a consistent environment and use appropriate test data to verify the application's functionality.
+
+## 2. Test Environment Configuration
+
+The following software and tools were used during testing.
 
 | Component | Configuration |
 |---|---|
-| Operating System | Microsoft Windows |
+| Operating System | Windows 11 |
 | Frontend Framework | React.js |
-| Frontend Development Server | Vite |
+| Frontend Development Tool | Vite |
 | Frontend URL | http://localhost:5173 |
-| Backend Runtime | Node.js |
+| Backend Runtime | Node.js v24.13.0 |
+| Package Manager | npm 11.6.2 |
 | Backend Framework | Express.js |
-| Backend URL | http://localhost:5000 |
 | Database | MongoDB |
-| ODM | Mongoose |
+| Database ODM | Mongoose |
 | Browser | Google Chrome |
+| Browser Version | 158.0.8127.36 (64-bit) |
 | Code Editor | Visual Studio Code |
 | Version Control | Git and GitHub |
 
-## 3. Application Configuration
+## 3. Test Environment Setup
 
-The LostLink application is executed locally using separate frontend and backend development servers.
+The following steps were followed to prepare the testing environment:
 
-The backend connects to a dedicated MongoDB QA database. Test accounts and sample item records are used during testing.
+1. The LostLink project source code was opened in Visual Studio Code.
+2. The required frontend and backend dependencies were installed using npm.
+3. The backend server was started using Node.js.
+4. The frontend development server was started using Vite.
+5. The application was accessed through the local frontend URL.
+6. MongoDB was used as the application's database through Mongoose.
+7. Functional test cases were executed using Google Chrome.
 
-The actual browser version, Node.js version and MongoDB database name should be recorded from the test machine before final submission.
+## 4. Test Data
 
-## 4. Test Data Management
+Synthetic test data was used to verify the main functionalities of the LostLink application.
 
-The following test data categories are used:
-
-| Data Category | Example | Purpose |
+| Test Data Category | Test Data Description | Purpose |
 |---|---|---|
-| Valid user account | Synthetic user with valid email and password | Registration and login testing |
-| Invalid email | studentgmail.com | Email validation |
-| Existing email | Previously registered test account | Duplicate registration testing |
-| Invalid password | Password shorter than 8 characters | Password validation |
-| Valid item | Synthetic lost/found item details | Item reporting and browsing |
-| Invalid item data | Missing required item information | Item validation |
-| Contact request | Synthetic message of at least 10 characters | Contact request testing |
-| Invalid contact message | Empty or fewer than 10 characters | Contact validation |
+| User Registration | QA Test User with a new email address | Verify successful registration |
+| Existing User Account | Previously registered QA account | Verify duplicate email validation |
+| Login Credentials | Valid registered email and password | Verify successful authentication |
+| Invalid Credentials | Incorrect password and unregistered email | Verify login error handling |
+| Item Records | Back Pack, Wallet, Blue Water Bottle and Test Laptop | Verify browsing, searching, filtering and item details |
+| Item Categories | Bags, Electronics, Stationery and Accessories | Verify category filtering |
+| Item Locations | Auditorium, University Library and other campus locations | Verify item location information |
+| Contact Request Message | Valid message and a message shorter than 10 characters | Verify contact request validation |
+| Duplicate Contact Request | Another request for an item with an existing pending request | Verify duplicate request prevention |
 
-## 5. Test Data Safety
+## 5. Test Data Management and Security
 
-- Use synthetic test accounts and dummy item information.
-- Do not use real users' personal information.
-- Use a separate QA database rather than production data.
-- Do not include passwords, database credentials or secret keys in Git commits.
-- Reset or remove test records when appropriate after testing.
+- Test accounts and item records were used for functional testing.
+- Invalid input values were used to verify application validation.
+- Test data was used to examine both successful and unsuccessful operations.
+- Real user credentials and confidential information were not used as test data.
+- Database records created for testing were used to verify application behaviour.
 
-## 6. Environment Readiness
+## 6. Test Environment Limitations
 
-The LostLink application has been started successfully in the local development environment.
-
-| Readiness Check | Status |
-|---|---|
-| Frontend installation and startup | Verified |
-| Backend installation and startup | Verified |
-| MongoDB connection | Verified |
-| QA database configuration | Configured |
-| Browser access to application | Verified |
-| Test account preparation | To be recorded |
-| Test execution | Pending |
+- Testing was performed in a local development environment.
+- Browser-based functional testing was performed using Google Chrome.
+- Testing results may differ in other browsers or production environments.
+- Performance under heavy concurrent user loads was not evaluated as part of these functional tests.
 
 ## 7. Conclusion
 
-The local testing environment provides the required frontend, backend and database components for executing functional and black-box tests on LostLink. A separate QA database and synthetic test data are used to support safe and repeatable testing.
+The LostLink application was tested using a local development environment consisting of React.js, Vite, Node.js, Express.js and MongoDB.
+
+Google Chrome was used to execute the functional test cases. Synthetic test data was prepared to verify registration, authentication, item management, browsing, searching, filtering and contact request functionalities.
