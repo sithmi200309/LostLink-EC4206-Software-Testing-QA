@@ -1,0 +1,359 @@
+{
+  "collection": {
+    "item": [
+      {
+        "id": "fff97303-81be-4eed-95f8-2212de1e64e7",
+        "name": "API-001 - Browse Item Reports",
+        "request": {
+          "url": {
+            "path": [
+              "api",
+              "items"
+            ],
+            "host": [
+              "{{baseUrl}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "cb9cf259-980f-4180-a548-2a9a701ca049",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test('API-001: Status code is 200', function () {",
+                "    pm.response.to.have.status(200);",
+                "});",
+                "",
+                "pm.test('API-001: Items is an array', function () {",
+                "    const data = pm.response.json();",
+                "    pm.expect(data.items).to.be.an('array');",
+                "});",
+                "",
+                "pm.test('API-001: Count is a number', function () {",
+                "    const data = pm.response.json();",
+                "    pm.expect(data.count).to.be.a('number');",
+                "});",
+                "",
+                "pm.test('API-001: Count matches items length', function () {",
+                "    const data = pm.response.json();",
+                "    pm.expect(data.count).to.eql(data.items.length);",
+                "});"
+              ],
+              "_lastExecutionId": "8b11275f-e940-43bd-a964-ca97146ff63d"
+            }
+          }
+        ]
+      }
+    ],
+    "event": [],
+    "variable": [
+      {
+        "type": "string",
+        "value": "http://127.0.0.1:5000",
+        "key": "baseUrl"
+      }
+    ],
+    "info": {
+      "_postman_id": "a05c6b07-f353-4ab6-8255-9170fbaf18b5",
+      "name": "LostLink QA API Tests",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "Member 3 - Postman API Automation for LostLink",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "id": "4b71ff70-ee3f-4315-b71d-cdec82e937dd",
+    "values": []
+  },
+  "globals": {
+    "id": "e21c54f2-61ec-4be8-9d9a-8444b2d68e2d",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 89,
+      "responseMin": 89,
+      "responseMax": 89,
+      "responseSd": 0,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1795537703103,
+      "completed": 1795537703288
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "0a1ead64-81eb-4bc9-9b1a-207b794784ad",
+          "httpRequestId": "e7f8c1fb-0c78-4dd1-b57a-511d0858cb9b"
+        },
+        "item": {
+          "id": "fff97303-81be-4eed-95f8-2212de1e64e7",
+          "name": "API-001 - Browse Item Reports",
+          "request": {
+            "url": {
+              "path": [
+                "api",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "cb9cf259-980f-4180-a548-2a9a701ca049",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('API-001: Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('API-001: Items is an array', function () {",
+                  "    const data = pm.response.json();",
+                  "    pm.expect(data.items).to.be.an('array');",
+                  "});",
+                  "",
+                  "pm.test('API-001: Count is a number', function () {",
+                  "    const data = pm.response.json();",
+                  "    pm.expect(data.count).to.be.a('number');",
+                  "});",
+                  "",
+                  "pm.test('API-001: Count matches items length', function () {",
+                  "    const data = pm.response.json();",
+                  "    pm.expect(data.count).to.eql(data.items.length);",
+                  "});"
+                ],
+                "_lastExecutionId": "8b11275f-e940-43bd-a964-ca97146ff63d"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "5000",
+            "path": [
+              "api",
+              "items"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "73222650-6dae-427a-b615-39d7235059b2",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:5000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "baa18e70-2c6b-4ebd-929c-d7123b197261",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "22"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"16-B94YMvKT5wR5UoWqtqSOfg3N07g\""
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 24 Nov 2026 16:28:23 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              99,
+              111,
+              117,
+              110,
+              116,
+              34,
+              58,
+              48,
+              44,
+              34,
+              105,
+              116,
+              101,
+              109,
+              115,
+              34,
+              58,
+              91,
+              93,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 89,
+          "responseSize": 22
+        },
+        "id": "fff97303-81be-4eed-95f8-2212de1e64e7",
+        "assertions": [
+          {
+            "assertion": "API-001: Status code is 200",
+            "skipped": false
+          },
+          {
+            "assertion": "API-001: Items is an array",
+            "skipped": false
+          },
+          {
+            "assertion": "API-001: Count is a number",
+            "skipped": false
+          },
+          {
+            "assertion": "API-001: Count matches items length",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 22
+    },
+    "failures": [],
+    "error": null
+  }
+}

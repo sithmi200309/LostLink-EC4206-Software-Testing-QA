@@ -1,0 +1,57 @@
+
+{
+  "info": {
+    "name": "LostLink QA API Tests",
+    "description": "Member 3 - Postman API Automation for LostLink",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API-001 - Browse Item Reports",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/items",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "items"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('API-001: Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('API-001: Items is an array', function () {",
+              "    const data = pm.response.json();",
+              "    pm.expect(data.items).to.be.an('array');",
+              "});",
+              "",
+              "pm.test('API-001: Count is a number', function () {",
+              "    const data = pm.response.json();",
+              "    pm.expect(data.count).to.be.a('number');",
+              "});",
+              "",
+              "pm.test('API-001: Count matches items length', function () {",
+              "    const data = pm.response.json();",
+              "    pm.expect(data.count).to.eql(data.items.length);",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:5000",
+      "type": "string"
+    }
+  ]
+}

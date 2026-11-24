@@ -1,0 +1,97 @@
+
+name: Member 3 - LostLink Automation Tests
+
+on:
+  push:
+    branches:
+      - feature/automation-bdd
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  automation-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:7
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.adminCommand({ping:1})'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      PORT: "5000"
+      MONGODB_URI: mongodb://127.0.0.1:27017/lostlink_qa_ci
+      JWT_SECRET: ci-only-placeholder-secret-not-for-production
+      API_BASE_URL: http://127.0.0.1:5000
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Install testing dependencies
+        working-directory: testing
+        run: npm ci
+
+      - name: Start LostLink backend
+        working-directory: backend
+        run: |
+          node server.js > ../backend.log 2>&1 &
+          echo $! > ../backend.pid
+
+      - name: Wait for backend API
+        run: |
+          for i in {1..30}; do
+            if curl --fail --silent \
+              http://127.0.0.1:5000/api/items \
+              > /dev/null; then
+              echo "Backend is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          cat backend.log
+          exit 1
+
+      - name: Run Cucumber BDD tests
+        working-directory: testing
+        run: npm run test:bdd
+
+      - name: Run Newman API tests
+        working-directory: testing
+        run: |
+          mkdir -p evidence/member3
+          npx newman run \
+            automation/postman/LostLink_QA.postman_collection.json \
+            --reporters cli,json \
+            --reporter-json-export \
+            evidence/member3/CI_Newman_results.json
+
+      - name: Upload Newman test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: member3-newman-results
+          path: testing/evidence/member3/CI_Newman_results.json
+          if-no-files-found: warn
+
+      - name: Show backend logs on failure
+        if: failure()
+        run: |
+          if [ -f backend.log ]; then
+            cat backend.log
+          fi
