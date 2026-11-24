@@ -1,0 +1,638 @@
+{
+  "info": {
+    "_postman_id": "c07286a8-fec7-4e84-9990-6bf651d774c3",
+    "name": "LostLink Member 4",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55547290",
+    "_collection_link": "https://go.postman.co/collection/55547290-c07286a8-fec7-4e84-9990-6bf651d774c3?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Security tests",
+      "item": [
+        {
+          "name": "SEC-001 No token",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/items/my-reports",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "items",
+                "my-reports"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-004 Valid token",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0s92}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/items/my-reports",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "items",
+                "my-reports"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-003 Tampered token",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_14v0}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/items/my-reports",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "items",
+                "my-reports"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-002 Invalid token",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "abc123",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/items/my-reports",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "items",
+                "my-reports"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-005 A edits B item",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-010 Contact malformed ID",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-008 Change createdBy",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0s92}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Still mine\",\r\n  \"createdBy\": \"6b0504a8438f7513826da010\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/items/6b03be96ead71029296dc20a",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "items",
+                "6b03be96ead71029296dc20a"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-006 A deletes B item Copy",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0s92}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/items/6b044eb6dade650f84d43412",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "items",
+                "6b044eb6dade650f84d43412"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-007 B item unchanged",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0s92}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/items/6b044eb6dade650f84d43412",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "items",
+                "6b044eb6dade650f84d43412"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SEC-009 Malformed item ID",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{json_web_token_0s92}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/items/6b044eb6dade650f84d43412",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "items",
+                "6b044eb6dade650f84d43412"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Get data",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "postman-echo.com/get",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "get"
+          ]
+        },
+        "description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+      },
+      "response": []
+    },
+    {
+      "name": "Post data",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful POST request\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "postman-echo.com/post",
+          "host": [
+            "postman-echo",
+            "com"
+          ],
+          "path": [
+            "post"
+          ]
+        },
+        "description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+      },
+      "response": []
+    },
+    {
+      "name": "Register User A",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"fullName\": \"Test User A\",\r\n  \"email\": \"usera@test.com\",\r\n  \"password\": \"Password123\",\r\n  \"confirmPassword\": \"Password123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login User A",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"usera@test.com\",\r\n  \"password\": \"Password123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login User B",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"userb@test.com\",\r\n  \"password\": \"Password123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register User B",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"fullName\": \"Test User B\",\r\n  \"email\": \"userb@test.com\",\r\n  \"password\": \"Password123\",\r\n  \"confirmPassword\": \"Password123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Item (User A)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0s92}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"status\": \"{{status}}\",\r\n  \"name\": \"{{name}}\",\r\n  \"category\": \"{{category}}\",\r\n  \"location\": \"{{location}}\",\r\n  \"date\": \"{{date}}\",\r\n  \"description\": \"{{description}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/items",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "items"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Item (User B)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0s92}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"status\": \"{{status}}\",\r\n  \"name\": \"{{name}}\",\r\n  \"category\": \"{{category}}\",\r\n  \"location\": \"{{location}}\",\r\n  \"date\": \"{{date}}\",\r\n  \"description\": \"{{description}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/items",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "items"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Seed 20 items (User A)",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const token = pm.collectionVariables.get(\"json_web_token_0s92\");\r",
+              "\r",
+              "const items = [\r",
+              "  [\"Lost\",\"Blue backpack\",\"Bags\",\"Library 2nd floor\",\"2026-11-20\",\"Blue backpack with a laptop sleeve and two notebooks inside.\"],\r",
+              "  [\"Found\",\"Black umbrella\",\"Accessories\",\"Main canteen\",\"2026-11-19\",\"Folding black umbrella left on a table near the entrance.\"],\r",
+              "  [\"Lost\",\"Casio fx-991ES calculator\",\"Electronics\",\"Lecture Hall 3\",\"2026-11-18\",\"Scientific calculator with my initials scratched on the back.\"],\r",
+              "  [\"Found\",\"Student ID card\",\"Documents\",\"Faculty bus stop\",\"2026-11-21\",\"University ID card found on the bench at the bus stop.\"],\r",
+              "  [\"Lost\",\"Silver water bottle\",\"Personal Items\",\"Gym changing room\",\"2026-11-17\",\"Steel water bottle with a dent near the cap and a blue sticker.\"],\r",
+              "  [\"Found\",\"Wireless earbuds\",\"Electronics\",\"Computer lab 2\",\"2026-11-16\",\"White earbuds in a charging case left beside a lab computer.\"],\r",
+              "  [\"Lost\",\"Engineering drawing set\",\"Stationery\",\"Drawing office\",\"2026-11-15\",\"Drawing instrument set in a grey box with compass and set squares.\"],\r",
+              "  [\"Found\",\"Grey hoodie\",\"Clothing\",\"Sports ground pavilion\",\"2026-11-14\",\"Grey zip hoodie size M found on the pavilion steps.\"],\r",
+              "  [\"Lost\",\"Laptop charger\",\"Electronics\",\"Study area near library\",\"2026-11-13\",\"Black 65W laptop charger with a frayed cable near the plug.\"],\r",
+              "  [\"Found\",\"House keys\",\"Personal Items\",\"Car park B\",\"2026-11-12\",\"Bunch of three keys on a red keyring found near the gate.\"],\r",
+              "  [\"Lost\",\"Spiral notebook\",\"Stationery\",\"Lecture Hall 1\",\"2026-11-11\",\"A4 spiral notebook with Structural Analysis notes inside.\"],\r",
+              "  [\"Found\",\"Prescription glasses\",\"Accessories\",\"Department office\",\"2026-11-10\",\"Black framed glasses in a brown case handed in at the office.\"],\r",
+              "  [\"Lost\",\"Wallet\",\"Personal Items\",\"Main canteen\",\"2026-11-09\",\"Brown leather wallet with bank cards and some cash inside.\"],\r",
+              "  [\"Found\",\"USB flash drive\",\"Electronics\",\"Computer lab 1\",\"2026-11-08\",\"32GB flash drive left plugged into a lab machine.\"],\r",
+              "  [\"Lost\",\"Lab coat\",\"Clothing\",\"Materials lab\",\"2026-11-07\",\"White lab coat with a name tag sewn inside the collar.\"],\r",
+              "  [\"Found\",\"Hostel room key\",\"Personal Items\",\"Hostel common room\",\"2026-11-06\",\"Single key with a numbered plastic tag found on a sofa.\"],\r",
+              "  [\"Lost\",\"Black handbag\",\"Bags\",\"Auditorium\",\"2026-11-05\",\"Small black handbag with a phone charger and lip balm inside.\"],\r",
+              "  [\"Found\",\"Wrist watch\",\"Accessories\",\"Swimming pool area\",\"2026-11-04\",\"Digital wrist watch with a black rubber strap found near lockers.\"],\r",
+              "  [\"Lost\",\"Certificate folder\",\"Documents\",\"Admin building\",\"2026-11-03\",\"Clear plastic folder with certificate copies inside.\"],\r",
+              "  [\"Found\",\"Pencil case\",\"Stationery\",\"Library ground floor\",\"2026-11-02\",\"Green pencil case with pens and a highlighter set inside.\"]\r",
+              "];\r",
+              "\r",
+              "items.forEach(([status, name, category, location, date, description], i) => {\r",
+              "  pm.sendRequest({\r",
+              "    url: \"http://localhost:5000/api/items\",\r",
+              "    method: \"POST\",\r",
+              "    header: [\r",
+              "      { key: \"Content-Type\", value: \"application/json\" },\r",
+              "      { key: \"Authorization\", value: \"Bearer \" + token }\r",
+              "    ],\r",
+              "    body: {\r",
+              "      mode: \"raw\",\r",
+              "      raw: JSON.stringify({ status, name, category, location, date, description })\r",
+              "    }\r",
+              "  }, (err, res) => {\r",
+              "    console.log(`Item ${i + 1} (${name}): ` + (err ? err : res.code));\r",
+              "  });\r",
+              "});"
+            ],
+            "packages": {},
+            "requests": {},
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/items",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "items"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_0s92",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_14v0",
+      "secret": true
+    }
+  ]
+}
