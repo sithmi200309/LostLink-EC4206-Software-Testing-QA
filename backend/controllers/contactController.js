@@ -1,4 +1,4 @@
-
+const mongoose = require("mongoose");
 const ContactRequest = require("../models/ContactRequest");
 const Item = require("../models/Item");
 
@@ -19,6 +19,14 @@ const sendContactRequest = async (req, res) => {
     if (message.trim().length < 10) {
       return res.status(400).json({
         message: "Message must contain at least 10 characters.",
+      });
+    }
+
+    
+    // Reject malformed item IDs before querying the database
+    if (!mongoose.isValidObjectId(itemId)) {
+      return res.status(400).json({
+        message: "Invalid item ID.",
       });
     }
 
