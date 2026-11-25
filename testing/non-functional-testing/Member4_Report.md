@@ -288,7 +288,7 @@ Working in small, separately owned workstreams with branches, pull requests, iss
 
 ## 10. Evidence index
 
-All evidence is in this folder (`non-functional-testing/`) on branch `feature/non-functional-testing`, merged to `main` via pull request.
+All evidence is in this folder (`testing/non-functional-testing/`) in the `main` branch, added via the `feature/non-functional-testing` pull request and later moved inside `testing/`.
 
 | Folder | Files | Supports |
 | --- | --- | --- |
