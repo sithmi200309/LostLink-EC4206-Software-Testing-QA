@@ -222,7 +222,3 @@ LostLink provides RESTful API endpoints for authentication, item management and 
 **Note:** Protected endpoints require a valid JWT access token in the HTTP Authorization header using the Bearer token format.
 
 
-## 10. Contributors
-
-RATHNAYAKE M.S.S. 
-EG/2023/5832
