@@ -1,5 +1,5 @@
 
-name: Member 3 - LostLink Automation Tests
+name: LostLink Automation Tests
 
 on:
   push:
