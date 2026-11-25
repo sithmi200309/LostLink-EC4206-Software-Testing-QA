@@ -1,11 +1,11 @@
-# Software Test Plan
-## LostLink – University Lost and Found Management System
+﻿# Software Test Plan
+## LostLink â€“ University Lost and Found Management System
 
-**Module:** EC4206 – Software Testing and Quality Assurance  
+**Module:** EC4206 â€“ Software Testing and Quality Assurance  
 **Project:** LostLink  
 **Document:** Software Test Plan  
 **Version:** 1.0  
-**Status:** Draft
+**Status:** Updated – Member 1 testing completed; team review pending
 
 ---
 
@@ -93,8 +93,8 @@ The application will be tested in a local development environment.
 | Database | MongoDB |
 | Frontend Port | 5173 |
 | Backend Port | 5000 |
-| Browser | To be confirmed |
-| Node.js Version | To be confirmed |
+| Browser | Google Chrome 158.0.8127.36 (64-bit) |
+| Node.js Version | v24.13.0 |
 | Database | Dedicated QA database |
 
 Testing will be conducted using synthetic test accounts and test data.
@@ -178,13 +178,5 @@ The expected testing deliverables include:
 - Defect reports
 - Final testing summary
 
-## 11. Test Approval
 
-This document is a draft and will be reviewed by the project team before finalization.
 
-| Role | Name | Approval |
-|---|---|---|
-| Member 1 | Rathnayake M.S.S. | Pending |
-| Member 2 | Jayarathne R.P.P. | Pending |
-| Member 3 | Jayasuriya M.G.S.F | Pending |
-| Member 4 | Imanda H.A. | Pending |

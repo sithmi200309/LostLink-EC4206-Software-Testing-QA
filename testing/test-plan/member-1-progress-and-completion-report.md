@@ -15,7 +15,7 @@ The assigned responsibilities included preparing test documentation, designing b
 | 3 | Document the Software Testing Life Cycle | STLC Documentation | Completed |
 | 4 | Design functional test cases | Master Test Case Register | Completed |
 | 5 | Apply Equivalence Partitioning | Equivalence Partitioning Document | Completed |
-| 6 | Apply Boundary Value Analysis | Boundary Value Analysis Document | Completed |
+| 6 | Apply Boundary Value Analysis | Boundary Value Analysis Document | Test design completed; partial execution |
 | 7 | Apply Decision Table Testing | Decision Table Testing Document | Completed |
 | 8 | Document the testing environment and test data | Test Environment and Test Data Record | Completed |
 | 9 | Execute functional and access-control test cases | Test Execution Results | Completed |
@@ -24,7 +24,7 @@ The assigned responsibilities included preparing test documentation, designing b
 
 ## 3. Test Execution Progress
 
-A total of 28 test cases were documented and executed.
+A total of 28 functional test cases were documented and executed.
 
 | Test Execution Status | Number of Test Cases |
 |---|---:|
@@ -34,7 +34,11 @@ A total of 28 test cases were documented and executed.
 | Not Run | 0 |
 | **Total** | **28** |
 
-The executed test cases covered registration, login, logout, item management, browsing, searching, filtering, sorting, contact requests and access control.
+The executed functional test cases covered registration, login, logout, item management, browsing, searching, filtering, sorting, contact requests and access control.
+
+In addition to functional testing, Boundary Value Analysis was designed for important input fields, including full name, password, email, item name, location, item description, contact request message and item date.
+
+Selected BVA test cases were executed, while the remaining cases are documented for future execution. The BVA execution results are recorded separately from the 28 functional test cases.
 
 ## 4. Testing Documentation Produced
 
@@ -50,17 +54,24 @@ The following documents were prepared and maintained under the `testing/` direct
 - Decision Table Testing
 - Test Execution Summary
 
-Supporting screenshots were organised under `testing/evidence/`.
+Supporting screenshots were organised under:
+
+`testing/member-1-test-planning-black-box-evidence/`
 
 ## 5. Challenges and Limitations
 
 - Testing was conducted in a local development environment.
 - Functional testing was primarily performed using Google Chrome.
-- The test results cover the scenarios documented and executed in the Master Test Case Register.
+- The functional test results cover the scenarios documented and executed in the Master Test Case Register.
+- Selected Boundary Value Analysis test cases were executed, while the remaining cases require further runtime testing.
+- A potential validation issue was identified in the full name field, where an input exceeding the specified maximum length was accepted during testing.
+- The 73-character password test was inconclusive because the application displayed a password mismatch message.
 - Testing in other browsers and production environments was outside the scope of these recorded activities.
 
 ## 6. Final Completion Statement
 
-Member 1 completed the assigned test planning and black-box testing documentation, designed and executed the documented functional test cases, recorded the observed results and organised supporting evidence.
+Member 1 completed the assigned test planning documentation, designed functional and black-box test cases, executed 28 functional test cases, recorded the observed results and organised supporting evidence.
 
-The completed deliverables provide a structured record of the testing activities performed for the LostLink application.
+Equivalence Partitioning and Decision Table Testing were documented as part of the black-box testing activities. Boundary Value Analysis test cases were also designed, and selected cases were executed and documented. The remaining BVA cases may be executed as additional testing when time permits.
+
+The completed deliverables provide a structured record of the test planning and black-box testing activities performed for the LostLink application.

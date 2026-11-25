@@ -1,8 +1,8 @@
-# Test Execution Summary – LostLink
+﻿# Test Execution Summary â€“ LostLink
 
 ## 1. Introduction
 
-This document summarises the results of functional testing performed on the LostLink – University Lost and Found Management System.
+This document summarises the results of functional testing performed on the LostLink â€“ University Lost and Found Management System.
 
 Testing was conducted using the test cases documented in the Master Test Case Register.
 
@@ -50,7 +50,7 @@ Screenshots were captured to support the observed test results.
 
 Evidence is referenced in the Master Test Case Register and stored in:
 
-`testing/evidence/`
+`testing/member-1-test-planning-black-box-evidence/`
 
 No defect IDs are recorded in the completed test cases.
 
