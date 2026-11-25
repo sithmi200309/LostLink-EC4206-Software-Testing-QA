@@ -18,8 +18,8 @@ The testing approach considers values immediately below, at and immediately abov
 
 | Test Case ID | Input Length | Boundary Condition | Expected Result | Actual Result | Status |
 |---|---:|---|---|---|---|
-| BVA-NAME-01 | 1 | Below minimum | Reject | Not executed | Not Run |
-| BVA-NAME-02 | 2 | Minimum boundary | Accept | Not executed | Not Run |
+| BVA-NAME-01 | 1 | Below minimum | Reject | Browser displayed a minimum-length validation message | Pass |
+| BVA-NAME-02 | 2 | Minimum boundary | Accept | Account created successfully | Pass |
 | BVA-NAME-03 | 3 | Just above minimum | Accept | Account created successfully | Pass |
 | BVA-NAME-04 | 99 | Just below maximum | Accept | Account created successfully | Pass |
 | BVA-NAME-05 | 100 | Maximum boundary | Accept | Account created successfully | Pass |
@@ -35,8 +35,8 @@ The testing approach considers values immediately below, at and immediately abov
 |---|---:|---|---|---|---|
 | BVA-PASS-01 | 7 | Below minimum | Reject | Browser displayed a minimum-length validation message | Pass |
 | BVA-PASS-02 | 8 | Minimum boundary | Accept | Account created successfully | Pass |
-| BVA-PASS-03 | 9 | Just above minimum | Accept | Not executed | Not Run |
-| BVA-PASS-04 | 71 | Just below maximum | Accept | Not executed | Not Run |
+| BVA-PASS-03 | 9 | Just above minimum | Accept | Account created successfully | Pass |
+| BVA-PASS-04 | 71 | Just below maximum | Accept | Account created successfully | Pass |
 | BVA-PASS-05 | 72 | Maximum boundary | Accept | Account created successfully | Pass |
 | BVA-PASS-06 | 73 | Above maximum | Reject | Application displayed "Passwords do not match"; password length validation could not be confirmed | Inconclusive |
 
@@ -50,8 +50,8 @@ The email must also follow a valid email format.
 
 | Test Case ID | Input Length | Boundary Condition | Expected Result | Actual Result | Status |
 |---|---:|---|---|---|---|
-| BVA-EMAIL-01 | 253 | Just below maximum | Accept if email format is valid | Not executed | Not Run |
-| BVA-EMAIL-02 | 254 | Maximum boundary | Accept if email format is valid | Not executed | Not Run |
+| BVA-EMAIL-01 | 253 | Just below maximum | Accept if email format is valid | Account created successfully | Pass |
+| BVA-EMAIL-02 | 254 | Maximum boundary | Accept if email format is valid | Account created successfully | Pass |
 | BVA-EMAIL-03 | 255 | Above maximum | Reject | Not executed | Not Run |
 
 ### 2.4 Item Name Field
