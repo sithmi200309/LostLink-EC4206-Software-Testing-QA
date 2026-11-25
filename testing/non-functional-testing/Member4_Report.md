@@ -1,4 +1,4 @@
-# LostLink QA — Member 4 Report: Non-Functional Testing & Defects
+# LostLink QA - Member 4 Report: Non-Functional Testing & Defects
 
 **Module:** EC4206 Software Testing and Quality Assurance · **Workstream:** Member 4 — Performance, Security, Usability & Defects · **Date:** 24 November 2026
 
