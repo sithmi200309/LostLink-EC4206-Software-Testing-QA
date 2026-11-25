@@ -60,12 +60,12 @@ The email must also follow a valid email format.
 
 | Test Case ID | Input Length | Boundary Condition | Expected Result | Actual Result | Status |
 |---|---:|---|---|---|---|
-| BVA-ITEM-01 | 1 | Below minimum | Reject | Not executed | Not Run |
-| BVA-ITEM-02 | 2 | Minimum boundary | Accept | Not executed | Not Run |
-| BVA-ITEM-03 | 3 | Just above minimum | Accept | Not executed | Not Run |
-| BVA-ITEM-04 | 99 | Just below maximum | Accept | Not executed | Not Run |
-| BVA-ITEM-05 | 100 | Maximum boundary | Accept | Not executed | Not Run |
-| BVA-ITEM-06 | 101 | Above maximum | Reject | Not executed | Not Run |
+| BVA-ITEM-01 | 1 | Below minimum | Reject | Browser displayed a minimum-length validation message | Pass |
+| BVA-ITEM-02 | 2 | Minimum boundary | Accept | Item saved successfully | Pass |
+| BVA-ITEM-03 | 3 | Just above minimum | Accept | Item saved successfully | Pass |
+| BVA-ITEM-04 | 99 | Just below maximum | Accept | Item saved successfully | Pass |
+| BVA-ITEM-05 | 100 | Maximum boundary | Accept | Item saved successfully | Pass |
+| BVA-ITEM-06 | 101 | Above maximum | Reject | Does not allow to type any more characters above 100 in the feild | Pass |
 
 ### 2.5 Location Field
 
@@ -85,12 +85,12 @@ The location field is required and has a maximum length restriction.
 
 | Test Case ID | Input Length | Boundary Condition | Expected Result | Actual Result | Status |
 |---|---:|---|---|---|---|
-| BVA-DESC-01 | 9 | Below minimum | Reject | Not executed | Not Run |
-| BVA-DESC-02 | 10 | Minimum boundary | Accept | Not executed | Not Run |
-| BVA-DESC-03 | 11 | Just above minimum | Accept | Not executed | Not Run |
-| BVA-DESC-04 | 999 | Just below maximum | Accept | Not executed | Not Run |
-| BVA-DESC-05 | 1000 | Maximum boundary | Accept | Not executed | Not Run |
-| BVA-DESC-06 | 1001 | Above maximum | Reject | Not executed | Not Run |
+| BVA-DESC-01 | 9 | Below minimum | Reject | Browser displayed a minimum-length validation message | Pass |
+| BVA-DESC-02 | 10 | Minimum boundary | Accept | Item saved succesfully | Pass |
+| BVA-DESC-03 | 11 | Just above minimum | Accept | Item saved succesfully | Pass |
+| BVA-DESC-04 | 999 | Just below maximum | Accept | Item saved succesfully | Pass |
+| BVA-DESC-05 | 1000 | Maximum boundary | Accept | Item saved succesfully | Pass |
+| BVA-DESC-06 | 1001 | Above maximum | Reject | Does not allow to type any more characters in the feild | pass |
 
 ### 2.7 Contact Request Message Field
 
@@ -98,12 +98,12 @@ The location field is required and has a maximum length restriction.
 
 | Test Case ID | Input Length | Boundary Condition | Expected Result | Actual Result | Status |
 |---|---:|---|---|---|---|
-| BVA-CONTACT-01 | 9 | Below minimum | Reject | Not executed | Not Run |
-| BVA-CONTACT-02 | 10 | Minimum boundary | Accept | Not executed | Not Run |
-| BVA-CONTACT-03 | 11 | Just above minimum | Accept | Not executed | Not Run |
-| BVA-CONTACT-04 | 999 | Just below maximum | Accept | Not executed | Not Run |
-| BVA-CONTACT-05 | 1000 | Maximum boundary | Accept | Not executed | Not Run |
-| BVA-CONTACT-06 | 1001 | Above maximum | Reject | Not executed | Not Run |
+| BVA-CONTACT-01 | 9 | Below minimum | Reject | rowser displayed a minimum-length validation message | Pass |
+| BVA-CONTACT-02 | 10 | Minimum boundary | Accept | Got a succesfull request sent msg | Pass |
+| BVA-CONTACT-03 | 11 | Just above minimum | Accept | Got a succesfull request sent msg | Pass |
+| BVA-CONTACT-04 | 999 | Just below maximum | Accept | Got a succesfull request sent msg | Pass |
+| BVA-CONTACT-05 | 1000 | Maximum boundary | Accept | Got a succesfull request sent msg | Pass |
+| BVA-CONTACT-06 | 1001 | Above maximum | Reject | Does not allow to type any more characters in the feild | Pass |
 
 ### 2.8 Item Date Field
 
@@ -111,9 +111,9 @@ The application is expected not to allow users to report an item with a future d
 
 | Test Case ID | Input Value | Boundary Condition | Expected Result | Actual Result | Status |
 |---|---|---|---|---|---|
-| BVA-DATE-01 | Yesterday | Before the current date | Accept | Not executed | Not Run |
-| BVA-DATE-02 | Today | Current date boundary | Accept | Not executed | Not Run |
-| BVA-DATE-03 | Tomorrow | After the current date | Reject | Not executed | Not Run |
+| BVA-DATE-01 | Yesterday | Before the current date | Accept | Allow to select a date before currentdate| Pass |
+| BVA-DATE-02 | Today | Current date boundary | Accept | Allows to select the today's date | Pass |
+| BVA-DATE-03 | Tomorrow | After the current date | Reject | Does not allow to select a future date | Pass |
 
 ## 3. Test Data Preparation
 
